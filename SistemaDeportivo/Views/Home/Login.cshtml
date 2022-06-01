@@ -7,9 +7,99 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width" />    
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <title>Login</title>
 </head>
-<body>
-</body>
+<style>
+    .minh-100 {
+        height: 100vh;
+    }
+</style>
+    <body>
+<main>
+      <section class="vh-100">
+        <div class="container py-5 h-100">
+          <div
+            class="row d-flex justify-content-center align-items-center h-100"
+          >
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+              <div class="card shadow-2-strong" style="border-radius: 1rem">
+                <div class="card-body p-5">
+                  <div class="text-center">
+                    <img
+                      src="~/img/piscina.png"
+                      alt="Imagen Principal"
+                      class="mb-4"
+                      width="125px"
+                      height="auto"
+                    />
+                  </div>
+                 @*@if(@ViewBag.Bool){
+                      <div class="alert alert-danger alert-dismissible fade show" role="alert">        
+                          <i class="bi bi-exclamation-triangle-fill"></i>
+                            @ViewBag.Error                                                
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                   }*@
+                  <form
+                    asp-action="Login"
+                    asp-controller="Home"                                        
+                    method="post"                    
+                  >
+                    <div class="mb-4">
+                      <label
+                        for="lblUser"
+                        class="col-form-label col-form-label-lg"
+                        >Usuario:</label
+                      >
+                      <input
+                        type="text"
+                        name="User"
+                        id="lblUser"
+                        class="form-control form-control-lg"
+                        placeholder="Coloca tú usuario aquí"
+                        required
+                      />
+                    </div>
+
+                    <div class="mb-4">
+                      <label
+                        for="lblPass"
+                        class="col-form-label col-form-label-lg"
+                        >Contraseña:</label
+                      >
+                      <input
+                        type="password"
+                        name="Pass"
+                        id="lblPass"
+                        placeholder="Coloca tú contraseña aquí"
+                        class="form-control form-control-lg"
+                        required
+                      />
+                    </div>
+                    <div class="text-center">
+                      <div class="mb-4 mt-4">
+                        <a asp-action="register" asp-controller="home"
+                          >Click Aquí para registrarte</a>
+                        <br />
+                        <a style="cursor:pointer" class="link-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Click aqui para recuperar contraseña</a>
+                      </div>                      
+                      <button
+                        class="btn-primary btn "
+                        type="submit"                        
+                      >
+                        Iniciar Sesión
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>
