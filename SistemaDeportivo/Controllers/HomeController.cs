@@ -14,26 +14,42 @@ namespace SistemaDeportivo.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        AlumnoModel obj = new AlumnoModel();
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
         [HttpGet]
-        public IActionResult Login() {            
+        public IActionResult Login() {
+            ViewBag.Bool = false;
             return View();
         }
         [HttpPost]
         public IActionResult Login(Usuarios user)
-        {            
+        {
+            if (ModelState.IsValid) {
+                //if (obj.Validation(user))
+                //{
+                //    return Content("Hola mundo");
+                //}
+                ViewBag.Bool = true;                
+            }            
             return View();
         }
         [HttpGet]
         public IActionResult Registro() {
+            ViewBag.Bool = false;
             return View();
         }
         [HttpPost]
         public IActionResult Registro(AlumnoCLS alumno)
-        {           
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Bool = true;
+                ViewBag.Mensaje = obj.Create(alumno);
+            }
             return View();
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

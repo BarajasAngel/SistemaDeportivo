@@ -31,18 +31,21 @@
                       height="auto"
                     />
                   </div>
-                 @*@if(@ViewBag.Bool){
-                      <div class="alert alert-danger alert-dismissible fade show" role="alert">        
-                          <i class="bi bi-exclamation-triangle-fill"></i>
-                            @ViewBag.Error                                                
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                 @if(@ViewBag.Bool){
+                      <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>@ViewBag.Mensaje</strong> Da click <a asp-action="Login" asp-controller="Home">aquí</a> para iniciar sesion
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
                       </div>
-                   }*@
+                   }
+                  <div id="contraseñas"></div>
                   <form
                     asp-action="Registro"
                     asp-controller="Home"                                        
                     method="post"    
                     class="row"
+                    id="frmRegistro"
                   >
                   @*------------------------------------------------------------*@
                     <div class="mb-4 col-lg-4">
@@ -58,12 +61,12 @@
                     @*------------------------------------------------------------*@
                     <div class="mb-4 col-lg-4">
                       <label
-                        asp-for="Contraseña"
-                        id="pass1"
+                        asp-for="Contraseña"                        
                         class="col-form-label col-form-label-lg"></label>
                       <input
                         type="password"
                         asp-for="Contraseña"
+                        id="pass1"
                         placeholder="Coloca tú contraseña aquí"
                         class="form-control form-control-lg"                        
                       />
@@ -192,7 +195,8 @@
                     <div class="text-center col-12"> 
                       <button
                         class="btn-primary btn form-control"
-                        type="submit"                        
+                        type="button"
+                        onclick="enviar()"
                       >
                         Registrarse
                       </button>
@@ -205,8 +209,24 @@
         </div>
       </section>
     </main>    
-            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function enviar() { 
+            var pass1 = document.getElementById("pass1").value;
+            var pass2 = document.getElementById("pass2").value;
+            if(pass1 == pass2)  
+                frmRegistro.submit()            
+            else
+                document.getElementById("contraseñas").innerHTML = `
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Hubo un error</strong> revisa que las contraseñas coincidan
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>`
+        }
+    </script>
 </body>
 </html>

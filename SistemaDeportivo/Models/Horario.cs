@@ -15,11 +15,11 @@ namespace SistemaDeportivo.Models
         }
 
         public int IdHorario { get; set; }
-        public TimeSpan? Lunes { get; set; }
-        public TimeSpan? Marte { get; set; }
-        public TimeSpan? Miercoles { get; set; }
-        public TimeSpan? Jueves { get; set; }
-        public TimeSpan? Viernes { get; set; }
+        public string Lunes { get; set; }
+        public string Marte { get; set; }
+        public string Miercoles { get; set; }
+        public string Jueves { get; set; }
+        public string Viernes { get; set; }
 
         public virtual ICollection<Deporte> Deporte { get; set; }
     }

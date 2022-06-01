@@ -35,13 +35,14 @@
                       height="auto"
                     />
                   </div>
-                 @*@if(@ViewBag.Bool){
-                      <div class="alert alert-danger alert-dismissible fade show" role="alert">        
-                          <i class="bi bi-exclamation-triangle-fill"></i>
-                            @ViewBag.Error                                                
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                 @if(@ViewBag.Bool){
+                      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Hubo un problema!</strong> Intentalo más tarde.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
                       </div>
-                   }*@
+                   }
                   <form
                     asp-action="Login"
                     asp-controller="Home"                                        
@@ -62,7 +63,8 @@
                       <input type="password" asp-for="Contraseña" class="form-control form-control-lg" placeholder="Coloca tú contraseña aquí"/>
                       <span asp-validation-for="Contraseña" class="text-danger"></span>
                     </div>
-                    <div class="text-center">               
+                    <div class="text-center">
+                      <a asp-action="Registro" asp-controller="Home">Click Aquí para registrarse</a>
                       <button
                         class="btn-primary btn "
                         type="submit"                         

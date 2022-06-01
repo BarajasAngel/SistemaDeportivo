@@ -32,7 +32,6 @@ namespace SistemaDeportivo.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Data Source=Asura;Initial Catalog=SistemaDeportivoDB;Integrated Security=True");
             }
         }
@@ -42,7 +41,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Administrator>(entity =>
             {
                 entity.HasKey(e => e.IdAdministrator)
-                    .HasName("PK__Administ__336D26FE7AA5A40A");
+                    .HasName("PK__Administ__336D26FE4BEB3CD4");
 
                 entity.Property(e => e.IdAdministrator).HasColumnName("Id_Administrator");
 
@@ -62,7 +61,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Alumnos>(entity =>
             {
                 entity.HasKey(e => e.IdAlumno)
-                    .HasName("PK__Alumnos__B996CB125A104D7A");
+                    .HasName("PK__Alumnos__B996CB129702779F");
 
                 entity.Property(e => e.IdAlumno).HasColumnName("Id_Alumno");
 
@@ -112,7 +111,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Credencial>(entity =>
             {
                 entity.HasKey(e => e.IdCredencial)
-                    .HasName("PK__Credenci__0E7E70883517D1F4");
+                    .HasName("PK__Credenci__0E7E7088CC423693");
 
                 entity.Property(e => e.IdCredencial).HasColumnName("Id_Credencial");
 
@@ -136,7 +135,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Deporte>(entity =>
             {
                 entity.HasKey(e => e.IdDeporte)
-                    .HasName("PK__Deporte__DE0349E2035AEC3A");
+                    .HasName("PK__Deporte__DE0349E215B34010");
 
                 entity.Property(e => e.IdDeporte).HasColumnName("Id_Deporte");
 
@@ -156,15 +155,25 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Horario>(entity =>
             {
                 entity.HasKey(e => e.IdHorario)
-                    .HasName("PK__Horario__AD7A4DD39F246FE1");
+                    .HasName("PK__Horario__AD7A4DD33A5539ED");
 
                 entity.Property(e => e.IdHorario).HasColumnName("Id_Horario");
+
+                entity.Property(e => e.Jueves).HasMaxLength(30);
+
+                entity.Property(e => e.Lunes).HasMaxLength(30);
+
+                entity.Property(e => e.Marte).HasMaxLength(30);
+
+                entity.Property(e => e.Miercoles).HasMaxLength(30);
+
+                entity.Property(e => e.Viernes).HasMaxLength(30);
             });
 
             modelBuilder.Entity<Profesores>(entity =>
             {
                 entity.HasKey(e => e.IdProfesor)
-                    .HasName("PK__Profesor__45D4152A4B255B69");
+                    .HasName("PK__Profesor__45D4152A4AFEB68B");
 
                 entity.Property(e => e.IdProfesor).HasColumnName("Id_Profesor");
 
@@ -184,7 +193,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Rol>(entity =>
             {
                 entity.HasKey(e => e.IdRol)
-                    .HasName("PK__Rol__55932E8637660919");
+                    .HasName("PK__Rol__55932E86170BCB59");
 
                 entity.Property(e => e.IdRol).HasColumnName("Id_Rol");
 
@@ -196,7 +205,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Usuarios>(entity =>
             {
                 entity.HasKey(e => e.IdUsuario)
-                    .HasName("PK__Usuarios__63C76BE20170D1FF");
+                    .HasName("PK__Usuarios__63C76BE24EFF63D0");
 
                 entity.Property(e => e.IdUsuario).HasColumnName("Id_Usuario");
 
