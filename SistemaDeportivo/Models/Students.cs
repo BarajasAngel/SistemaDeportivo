@@ -15,6 +15,7 @@ namespace SistemaDeportivo.Models
         }
 
         public int IdAlumno { get; set; }
+        public string Nombre { get; set; }
         public string ApellidoPat { get; set; }
         public string ApellidoMat { get; set; }
         public decimal Edad { get; set; }

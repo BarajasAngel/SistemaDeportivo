@@ -1,0 +1,242 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Registro</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+  <body>
+    <main>
+      <section class="vh-100">
+        <div class="container py-5 h-100">
+          <div
+            class="row d-flex justify-content-center align-items-center h-100"
+          >
+            <div class="col-12">
+              <div class="card shadow-2-strong" style="border-radius: 1rem">
+                <div class="card-body p-5">
+                  <div class="text-center">
+                    <img
+                      src="~/img/piscina.png"
+                      alt="Imagen Principal"
+                      class="mb-4"
+                      width="125px"
+                      height="auto"
+                    />
+                  </div>
+                 @*@if(@ViewBag.Bool){
+                      <div class="alert alert-danger alert-dismissible fade show" role="alert">        
+                          <i class="bi bi-exclamation-triangle-fill"></i>
+                            @ViewBag.Error                                                
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                   }*@
+                  <form
+                    asp-action="Login"
+                    asp-controller="Home"                                        
+                    method="post"    
+                    class="row"
+                  >
+                  @*------------------------------------------------------------*@
+                    <div class="mb-4 col-lg-4">
+                      <label
+                        for="lblUser"
+                        class="col-form-label col-form-label-lg"
+                        >Usuario:</label
+                      >
+                      <input
+                        type="text"
+                        name="User"
+                        id="lblUser"
+                        class="form-control form-control-lg"
+                        placeholder="Coloca tú usuario aquí"
+                        required
+                      />
+                    </div>
+                    @*------------------------------------------------------------*@
+                    <div class="mb-4 col-lg-4">
+                      <label
+                        for="lblPass"
+                        class="col-form-label col-form-label-lg"
+                        >Contraseña:</label
+                      >
+                      <input
+                        type="password"
+                        name="Pass"
+                        id="lblPass"
+                        placeholder="Coloca tú contraseña aquí"
+                        class="form-control form-control-lg"
+                        required
+                      />
+                    </div>
+                    @*------------------------------------------------------------*@
+                    <div class="mb-4 col-lg-4">
+                      <label
+                        for="lblPass"
+                        class="col-form-label col-form-label-lg"
+                        >Repetir Contraseña:</label
+                      >
+                      <input
+                        type="password"
+                        name="Pass2"
+                        id="lblPass2"
+                        placeholder="Repite tú contraseña aquí"
+                        class="form-control form-control-lg"
+                        required
+                      />
+                    </div>
+                    @*------------------------------------------------------------*@
+                    <div class="mb-4 col-lg-4">
+                      <label
+                        for="lblName"
+                        class="col-form-label col-form-label-lg"
+                        >Nombre:</label
+                      >
+                      <input
+                        type="text"
+                        name="Nombre"
+                        id="lblName"
+                        placeholder="Coloca tú Nombre aquí"
+                        class="form-control form-control-lg"
+                        required
+                      />
+                    </div>
+                    @*------------------------------------------------------------*@
+                    <div class="mb-4 col-lg-4">
+                      <label
+                        for="lblApellidoPat"
+                        class="col-form-label col-form-label-lg"
+                        >Apellido Paterno:</label
+                      >
+                      <input
+                        type="text"
+                        name="ApellidoPat"
+                        id="lblApellidoPat"
+                        placeholder="Coloca tú Apellido Paterno aquí"
+                        class="form-control form-control-lg"
+                        required
+                      />
+                    </div>
+                    @*------------------------------------------------------------*@
+                    <div class="mb-4 col-lg-4">
+                      <label
+                        for="lblApellidoMat"
+                        class="col-form-label col-form-label-lg"
+                        >Apellido Materno:</label
+                      >
+                      <input
+                        type="text"
+                        name="ApellidoMat"
+                        id="lblApellidoPat"
+                        placeholder="Coloca tú Apellido Materno aquí"
+                        class="form-control form-control-lg"
+                        required
+                      />
+                    </div>
+                    @*------------------------------------------------------------*@
+                    <div class="mb-4 col-lg-4">
+                      <label
+                        for="lblEdad"
+                        class="col-form-label col-form-label-lg"
+                        >Edad:</label
+                      >
+                      <input
+                        type="text"
+                        name="Edad"
+                        id="lblEdad"
+                        placeholder="Coloca tú Edad aquí"
+                        class="form-control form-control-lg"
+                        required
+                      />
+                    </div>
+                    @*------------------------------------------------------------*@
+                    <div class="mb-4 col-lg-4">
+                      <label
+                        for="lblSexo"
+                        class="col-form-label col-form-label-lg">Género:
+                      </label>
+                      <select class="form-control form-control-lg form-select" 
+                          list="datalistRazaPerro" 
+                          id="lblSexo" 
+                          name="Sexo">   
+                          <option value="" disabled selected>Selecciona una opción</option>
+                          <option value="Mujer">Mujer</option>
+                          <option value="Hombre">Hombre</option>
+                          <option value="Otro">Otro</option>
+                      </select> 
+                    </div>
+                    @*------------------------------------------------------------*@
+                    <div class="mb-4 col-lg-4">
+                      <label
+                        for="lblCorreo"
+                        class="col-form-label col-form-label-lg"
+                        >Correo:</label
+                      >
+                      <input
+                        type="email"
+                        name="Correo"
+                        id="lblCorreo"
+                        placeholder="Coloca tú Correo aquí"
+                        class="form-control form-control-lg"
+                        required
+                      />
+                    </div>
+                    @*------------------------------------------------------------*@
+                    <div class="mb-4 col-lg-6">
+                      <label
+                        for="lblCelular"
+                        class="col-form-label col-form-label-lg"
+                        >Celular:</label
+                      >
+                      <input
+                        type="tel"
+                        name="Celular"
+                        id="lblCelular"
+                        placeholder="Coloca tú Celular aquí"
+                        class="form-control form-control-lg"
+                        required
+                      />
+                    </div>
+                    @*------------------------------------------------------------*@
+                    <div class="mb-4 col-lg-6">
+                      <label
+                        for="lblDeporte"
+                        class="col-form-label col-form-label-lg">Género:
+                      </label>
+                      <select class="form-control form-control-lg form-select"                           
+                          id="lblDeporte" 
+                          name="Deporte">   
+                          <option value="" disabled selected>Selecciona una opción</option>
+                          <option value="1">Futbol Soccer</option>
+                          <option value="2">Basquetbol</option>
+                          <option value="3">Futbol Americano</option>
+                          <option value="4">Taekwondo</option>
+                          <option value="5">Karate</option>
+                      </select> 
+                    </div>
+                    @*------------------------------------------------------------*@
+                    <div class="text-center col-12"> 
+                      <button
+                        class="btn-primary btn form-control"
+                        type="submit"                        
+                      >
+                        Registrarse
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
