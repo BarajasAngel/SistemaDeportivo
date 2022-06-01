@@ -11,12 +11,12 @@ namespace SistemaDeportivo.Models
     {
         public Rol()
         {
-            Users = new HashSet<Users>();
+            Usuarios = new HashSet<Usuarios>();
         }
 
         public int IdRol { get; set; }
         public string Nombre { get; set; }
 
-        public virtual ICollection<Users> Users { get; set; }
+        public virtual ICollection<Usuarios> Usuarios { get; set; }
     }
 }

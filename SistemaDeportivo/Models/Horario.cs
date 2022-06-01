@@ -7,11 +7,11 @@ using System.Collections.Generic;
 
 namespace SistemaDeportivo.Models
 {
-    public partial class TimeTable
+    public partial class Horario
     {
-        public TimeTable()
+        public Horario()
         {
-            Sport = new HashSet<Sport>();
+            Deporte = new HashSet<Deporte>();
         }
 
         public int IdHorario { get; set; }
@@ -21,6 +21,6 @@ namespace SistemaDeportivo.Models
         public TimeSpan? Jueves { get; set; }
         public TimeSpan? Viernes { get; set; }
 
-        public virtual ICollection<Sport> Sport { get; set; }
+        public virtual ICollection<Deporte> Deporte { get; set; }
     }
 }

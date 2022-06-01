@@ -1,4 +1,4 @@
-﻿
+﻿@model Usuarios
 @{
     Layout = null;
 }
@@ -45,49 +45,27 @@
                   <form
                     asp-action="Login"
                     asp-controller="Home"                                        
-                    method="post"                    
+                    method="post"                                        
                   >
                     <div class="mb-4">
-                      <label
-                        for="lblUser"
-                        class="col-form-label col-form-label-lg"
-                        >Usuario:</label
-                      >
-                      <input
-                        type="text"
-                        name="User"
-                        id="lblUser"
-                        class="form-control form-control-lg"
-                        placeholder="Coloca tú usuario aquí"
-                        required
-                      />
+                      <label             
+                        asp-for="Usuario"
+                        class="col-form-label col-form-label-lg"></label>
+                      <input type="text" asp-for="Usuario" class="form-control form-control-lg" placeholder="Coloca tú usuario aquí"/>
+                      <span asp-validation-for="Usuario" class="text-danger"></span>
                     </div>
-
                     <div class="mb-4">
-                      <label
-                        for="lblPass"
+                      <label                        
+                        asp-for="Contraseña"
                         class="col-form-label col-form-label-lg"
-                        >Contraseña:</label
-                      >
-                      <input
-                        type="password"
-                        name="Pass"
-                        id="lblPass"
-                        placeholder="Coloca tú contraseña aquí"
-                        class="form-control form-control-lg"
-                        required
-                      />
+                        ></label>
+                      <input type="password" asp-for="Contraseña" class="form-control form-control-lg" placeholder="Coloca tú contraseña aquí"/>
+                      <span asp-validation-for="Contraseña" class="text-danger"></span>
                     </div>
-                    <div class="text-center">
-                      <div class="mb-4 mt-4">
-                        <a asp-action="register" asp-controller="home"
-                          >Click Aquí para registrarte</a>
-                        <br />
-                        <a style="cursor:pointer" class="link-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Click aqui para recuperar contraseña</a>
-                      </div>                      
+                    <div class="text-center">               
                       <button
                         class="btn-primary btn "
-                        type="submit"                        
+                        type="submit"                         
                       >
                         Iniciar Sesión
                       </button>
@@ -99,7 +77,9 @@
           </div>
         </div>
       </section>
-    </main>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    </main>    
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     </body>
 </html>

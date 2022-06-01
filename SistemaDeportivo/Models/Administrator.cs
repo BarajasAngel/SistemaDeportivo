@@ -13,6 +13,6 @@ namespace SistemaDeportivo.Models
         public string Nombre { get; set; }
         public int IdUsuario { get; set; }
 
-        public virtual Users IdUsuarioNavigation { get; set; }
+        public virtual Usuarios IdUsuarioNavigation { get; set; }
     }
 }

@@ -7,18 +7,18 @@ using System.Collections.Generic;
 
 namespace SistemaDeportivo.Models
 {
-    public partial class Sport
+    public partial class Deporte
     {
-        public Sport()
+        public Deporte()
         {
-            Students = new HashSet<Students>();
+            Alumnos = new HashSet<Alumnos>();
         }
 
         public int IdDeporte { get; set; }
         public string NombreDeporte { get; set; }
         public int IdHorario { get; set; }
 
-        public virtual TimeTable IdHorarioNavigation { get; set; }
-        public virtual ICollection<Students> Students { get; set; }
+        public virtual Horario IdHorarioNavigation { get; set; }
+        public virtual ICollection<Alumnos> Alumnos { get; set; }
     }
 }

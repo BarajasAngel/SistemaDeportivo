@@ -1,4 +1,5 @@
-﻿
+﻿@using SistemaDeportivo.Clases
+@model AlumnoCLS
 @{
     Layout = null;
 }
@@ -20,7 +21,7 @@
           >
             <div class="col-12">
               <div class="card shadow-2-strong" style="border-radius: 1rem">
-                <div class="card-body p-5">
+                <div class="card-body p-3">
                   <div class="text-center">
                     <img
                       src="~/img/piscina.png"
@@ -38,7 +39,7 @@
                       </div>
                    }*@
                   <form
-                    asp-action="Login"
+                    asp-action="Registro"
                     asp-controller="Home"                                        
                     method="post"    
                     class="row"
@@ -46,172 +47,138 @@
                   @*------------------------------------------------------------*@
                     <div class="mb-4 col-lg-4">
                       <label
-                        for="lblUser"
-                        class="col-form-label col-form-label-lg"
-                        >Usuario:</label
-                      >
-                      <input
-                        type="text"
-                        name="User"
-                        id="lblUser"
+                        asp-for="Usuario"
+                        class="col-form-label col-form-label-lg"></label>
+                      <input                        
+                        asp-for="Usuario"
                         class="form-control form-control-lg"
-                        placeholder="Coloca tú usuario aquí"
-                        required
-                      />
+                        placeholder="Coloca tú usuario aquí"/>
+                        <span asp-validation-for="Usuario" class="text-danger"></span>
                     </div>
                     @*------------------------------------------------------------*@
                     <div class="mb-4 col-lg-4">
                       <label
-                        for="lblPass"
-                        class="col-form-label col-form-label-lg"
-                        >Contraseña:</label
-                      >
+                        asp-for="Contraseña"
+                        id="pass1"
+                        class="col-form-label col-form-label-lg"></label>
                       <input
                         type="password"
-                        name="Pass"
-                        id="lblPass"
+                        asp-for="Contraseña"
                         placeholder="Coloca tú contraseña aquí"
-                        class="form-control form-control-lg"
-                        required
+                        class="form-control form-control-lg"                        
                       />
+                      <span asp-validation-for="Contraseña" class="text-danger"></span>
                     </div>
                     @*------------------------------------------------------------*@
                     <div class="mb-4 col-lg-4">
                       <label
-                        for="lblPass"
+                        asp-for="Contraseña"
                         class="col-form-label col-form-label-lg"
-                        >Repetir Contraseña:</label
-                      >
+                        >Repetir Contraseña:</label>
                       <input
-                        type="password"
-                        name="Pass2"
-                        id="lblPass2"
+                        type="password"                        
+                        id="pass2"
                         placeholder="Repite tú contraseña aquí"
-                        class="form-control form-control-lg"
-                        required
+                        class="form-control form-control-lg"                        
                       />
+                      <span asp-validation-for="Contraseña" class="text-danger"></span>
                     </div>
                     @*------------------------------------------------------------*@
                     <div class="mb-4 col-lg-4">
                       <label
-                        for="lblName"
-                        class="col-form-label col-form-label-lg"
-                        >Nombre:</label
-                      >
-                      <input
-                        type="text"
-                        name="Nombre"
-                        id="lblName"
+                        asp-for="Nombre"
+                        class="col-form-label col-form-label-lg"></label>
+                      <input                                                
+                        asp-for="Nombre"
                         placeholder="Coloca tú Nombre aquí"
-                        class="form-control form-control-lg"
-                        required
+                        class="form-control form-control-lg"                        
                       />
+                      <span asp-validation-for="Nombre" class="text-danger"></span>
                     </div>
                     @*------------------------------------------------------------*@
                     <div class="mb-4 col-lg-4">
                       <label
-                        for="lblApellidoPat"
+                        asp-for="ApellidoPat"
                         class="col-form-label col-form-label-lg"
-                        >Apellido Paterno:</label
-                      >
+                        >Apellido Paterno:</label>
                       <input
-                        type="text"
-                        name="ApellidoPat"
-                        id="lblApellidoPat"
+                        asp-for="ApellidoPat"
                         placeholder="Coloca tú Apellido Paterno aquí"
-                        class="form-control form-control-lg"
-                        required
+                        class="form-control form-control-lg"                        
                       />
+                      <span asp-validation-for="ApellidoPat" class="text-danger"></span>
                     </div>
                     @*------------------------------------------------------------*@
                     <div class="mb-4 col-lg-4">
                       <label
-                        for="lblApellidoMat"
-                        class="col-form-label col-form-label-lg"
-                        >Apellido Materno:</label
-                      >
+                        asp-for="ApellidoMat"
+                        class="col-form-label col-form-label-lg"></label>
                       <input
-                        type="text"
-                        name="ApellidoMat"
-                        id="lblApellidoPat"
+                        asp-for="ApellidoMat"
                         placeholder="Coloca tú Apellido Materno aquí"
-                        class="form-control form-control-lg"
-                        required
+                        class="form-control form-control-lg"                        
                       />
+                      <span asp-validation-for="ApellidoMat" class="text-danger"></span>
                     </div>
                     @*------------------------------------------------------------*@
                     <div class="mb-4 col-lg-4">
                       <label
-                        for="lblEdad"
+                        asp-for="Edad"
                         class="col-form-label col-form-label-lg"
-                        >Edad:</label
-                      >
+                        >Edad:</label>
                       <input
-                        type="text"
-                        name="Edad"
-                        id="lblEdad"
+                        asp-for="Edad"
                         placeholder="Coloca tú Edad aquí"
-                        class="form-control form-control-lg"
-                        required
+                        class="form-control form-control-lg"                        
                       />
+                      <span asp-validation-for="Edad" class="text-danger"></span>
                     </div>
                     @*------------------------------------------------------------*@
                     <div class="mb-4 col-lg-4">
                       <label
-                        for="lblSexo"
-                        class="col-form-label col-form-label-lg">Género:
-                      </label>
+                        asp-for="Sexo"
+                        class="col-form-label col-form-label-lg"></label>
                       <select class="form-control form-control-lg form-select" 
-                          list="datalistRazaPerro" 
-                          id="lblSexo" 
-                          name="Sexo">   
+                          asp-for="Sexo">   
                           <option value="" disabled selected>Selecciona una opción</option>
                           <option value="Mujer">Mujer</option>
                           <option value="Hombre">Hombre</option>
                           <option value="Otro">Otro</option>
                       </select> 
+                      <span asp-validation-for="Sexo" class="text-danger"></span>
                     </div>
                     @*------------------------------------------------------------*@
                     <div class="mb-4 col-lg-4">
                       <label
-                        for="lblCorreo"
-                        class="col-form-label col-form-label-lg"
-                        >Correo:</label
-                      >
+                        asp-for="Correo"
+                        class="col-form-label col-form-label-lg"></label>
                       <input
-                        type="email"
-                        name="Correo"
-                        id="lblCorreo"
+                        asp-for="Correo"
                         placeholder="Coloca tú Correo aquí"
-                        class="form-control form-control-lg"
-                        required
+                        class="form-control form-control-lg"                        
                       />
+                      <span asp-validation-for="Correo" class="text-danger"></span>
                     </div>
                     @*------------------------------------------------------------*@
                     <div class="mb-4 col-lg-6">
                       <label
-                        for="lblCelular"
-                        class="col-form-label col-form-label-lg"
-                        >Celular:</label
-                      >
+                        asp-for="Celular"
+                        class="col-form-label col-form-label-lg"></label>
                       <input
                         type="tel"
-                        name="Celular"
-                        id="lblCelular"
+                        asp-for="Celular"
                         placeholder="Coloca tú Celular aquí"
-                        class="form-control form-control-lg"
-                        required
+                        class="form-control form-control-lg"                        
                       />
+                      <span asp-validation-for="Celular" class="text-danger"></span>
                     </div>
                     @*------------------------------------------------------------*@
                     <div class="mb-4 col-lg-6">
                       <label
-                        for="lblDeporte"
-                        class="col-form-label col-form-label-lg">Género:
-                      </label>
-                      <select class="form-control form-control-lg form-select"                           
-                          id="lblDeporte" 
-                          name="Deporte">   
+                        asp-for="IdDeporte"
+                        class="col-form-label col-form-label-lg"></label>
+                      <select asp-for="IdDeporte"
+                          class="form-control form-control-lg form-select">   
                           <option value="" disabled selected>Selecciona una opción</option>
                           <option value="1">Futbol Soccer</option>
                           <option value="2">Basquetbol</option>
@@ -219,6 +186,7 @@
                           <option value="4">Taekwondo</option>
                           <option value="5">Karate</option>
                       </select> 
+                      <span asp-validation-for="IdDeporte" class="text-danger"></span>
                     </div>
                     @*------------------------------------------------------------*@
                     <div class="text-center col-12"> 
@@ -236,7 +204,9 @@
           </div>
         </div>
       </section>
-    </main>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    </main>    
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SistemaDeportivo.Clases;
 using SistemaDeportivo.Models;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,24 @@ namespace SistemaDeportivo.Controllers
         {
             _logger = logger;
         }
-
-        public IActionResult Login() {
+        [HttpGet]
+        public IActionResult Login() {            
             return View();
         }
-
+        [HttpPost]
+        public IActionResult Login(Usuarios user)
+        {            
+            return View();
+        }
+        [HttpGet]
         public IActionResult Registro() {
             return View();
         }
-
+        [HttpPost]
+        public IActionResult Registro(AlumnoCLS alumno)
+        {           
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

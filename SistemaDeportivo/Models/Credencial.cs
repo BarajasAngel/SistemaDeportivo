@@ -7,13 +7,13 @@ using System.Collections.Generic;
 
 namespace SistemaDeportivo.Models
 {
-    public partial class Credential
+    public partial class Credencial
     {
         public int IdCredencial { get; set; }
         public int IdProfesor { get; set; }
         public int IdAlumno { get; set; }
 
-        public virtual Students IdAlumnoNavigation { get; set; }
-        public virtual Teacher IdProfesorNavigation { get; set; }
+        public virtual Alumnos IdAlumnoNavigation { get; set; }
+        public virtual Profesores IdProfesorNavigation { get; set; }
     }
 }

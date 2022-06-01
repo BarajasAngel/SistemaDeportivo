@@ -7,11 +7,11 @@ using System.Collections.Generic;
 
 namespace SistemaDeportivo.Models
 {
-    public partial class Students
+    public partial class Alumnos
     {
-        public Students()
+        public Alumnos()
         {
-            Credential = new HashSet<Credential>();
+            Credencial = new HashSet<Credencial>();
         }
 
         public int IdAlumno { get; set; }
@@ -25,8 +25,8 @@ namespace SistemaDeportivo.Models
         public int IdUsuario { get; set; }
         public int IdDeporte { get; set; }
 
-        public virtual Sport IdDeporteNavigation { get; set; }
-        public virtual Users IdUsuarioNavigation { get; set; }
-        public virtual ICollection<Credential> Credential { get; set; }
+        public virtual Deporte IdDeporteNavigation { get; set; }
+        public virtual Usuarios IdUsuarioNavigation { get; set; }
+        public virtual ICollection<Credencial> Credencial { get; set; }
     }
 }

@@ -7,18 +7,18 @@ using System.Collections.Generic;
 
 namespace SistemaDeportivo.Models
 {
-    public partial class Teacher
+    public partial class Profesores
     {
-        public Teacher()
+        public Profesores()
         {
-            Credential = new HashSet<Credential>();
+            Credencial = new HashSet<Credencial>();
         }
 
         public int IdProfesor { get; set; }
         public string Nombre { get; set; }
         public int IdUsuario { get; set; }
 
-        public virtual Users IdUsuarioNavigation { get; set; }
-        public virtual ICollection<Credential> Credential { get; set; }
+        public virtual Usuarios IdUsuarioNavigation { get; set; }
+        public virtual ICollection<Credencial> Credencial { get; set; }
     }
 }
