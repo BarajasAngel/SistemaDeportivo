@@ -8,10 +8,14 @@ namespace SistemaDeportivo.Clases
         public string Create(AlumnoCLS alumno) {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
+                if (Validation(alumno.Usuario,alumno.Contraseña))
+                {
+                    return "Este usuario ya existe";
+                }
                 Usuarios setUser = new Usuarios(){
                     Usuario = alumno.Usuario,
                     Contraseña = alumno.Contraseña,
-                    IdRol = 1                    
+                    IdRol = 3                   
                 };
 
                 db.Add(setUser);
@@ -46,20 +50,28 @@ namespace SistemaDeportivo.Clases
                 }               
             }            
         }
-        //public bool Validation(Usuarios user) {
-        //    using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
-        //    {
-
-        //    }        
-        //}
+        public bool Validation(string usuario, string contraseña)
+        {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                var getUsuario = db.Usuarios.Where(x => x.Usuario == usuario && x.Contraseña == contraseña).FirstOrDefault();
+                if (getUsuario != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        public string Read()
+        {
+            return "";
+        }
         public string Update() {
             return "";
         }
         public string Delete() {
             return "";
         }
-        public string Read() {
-            return "";
-        }
+        
     }
 }

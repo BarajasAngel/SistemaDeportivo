@@ -29,12 +29,14 @@ namespace SistemaDeportivo.Controllers
         public IActionResult Login(Usuarios user)
         {
             if (ModelState.IsValid) {
-                //if (obj.Validation(user))
-                //{
-                //    return Content("Hola mundo");
-                //}
-                ViewBag.Bool = true;                
-            }            
+                if (obj.Validation(user.Usuario,user.Contraseña))
+                {                   
+                    return Content("Hola mundo");
+                }
+                ViewBag.Bool = true;
+                return View();
+            }
+            ViewBag.Bool = false;
             return View();
         }
         [HttpGet]
@@ -49,7 +51,9 @@ namespace SistemaDeportivo.Controllers
             {
                 ViewBag.Bool = true;
                 ViewBag.Mensaje = obj.Create(alumno);
+                return View();
             }
+            ViewBag.Bool = false;
             return View();
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
