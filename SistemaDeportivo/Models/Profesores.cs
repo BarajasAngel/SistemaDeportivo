@@ -17,7 +17,9 @@ namespace SistemaDeportivo.Models
         public int IdProfesor { get; set; }
         public string Nombre { get; set; }
         public int IdUsuario { get; set; }
+        public int IdDeporte { get; set; }
 
+        public virtual Deporte IdDeporteNavigation { get; set; }
         public virtual Usuarios IdUsuarioNavigation { get; set; }
         public virtual ICollection<Credencial> Credencial { get; set; }
     }

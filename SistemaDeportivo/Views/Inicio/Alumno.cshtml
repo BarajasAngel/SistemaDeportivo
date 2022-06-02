@@ -1,0 +1,46 @@
+﻿@model Profesores
+@{
+    ViewData["Title"] = "Alumno";
+    Layout = "~/Views/Shared/_AlumnoLayout.cshtml";
+}
+
+<h1>Bienvenido !</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">@Html.DisplayFor(m => 
+          m.Nombre)</th>
+      <th scope="col">@Html.DisplayFor(m => 
+          m.IdDeporteNavigation.NombreDeporte)</th>
+      <th scope="col">@Html.DisplayFor(m => 
+          m.IdDeporteNavigation.IdHorarioNavigation.Lunes)</th>
+      <th scope="col">@Html.DisplayFor(m => 
+          m.IdDeporteNavigation.IdHorarioNavigation.Marte)</th>
+      <th scope="col">@Html.DisplayFor(m => 
+          m.IdDeporteNavigation.IdHorarioNavigation.Miercoles)</th>
+      <th scope="col">@Html.DisplayFor(m => 
+          m.IdDeporteNavigation.IdHorarioNavigation.Jueves)</th>
+      <th scope="col">@Html.DisplayFor(m => 
+          m.IdDeporteNavigation.IdHorarioNavigation.Viernes)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>      
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>      
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>      
+    </tr>
+  </tbody>
+</table>

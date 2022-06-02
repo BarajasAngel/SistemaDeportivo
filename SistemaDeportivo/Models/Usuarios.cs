@@ -24,7 +24,7 @@ namespace SistemaDeportivo.Models
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Ingresa tu contraseña")]
         [StringLength(30, MinimumLength = 8,
-            ErrorMessage = "Tu contraseña debe tener entre 8 y 30 caracteres")]           
+            ErrorMessage = "Tu contraseña debe tener entre 8 y 30 caracteres")]
         public string Contraseña { get; set; }
         public int IdRol { get; set; }
 

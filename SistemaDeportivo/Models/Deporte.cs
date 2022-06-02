@@ -12,6 +12,7 @@ namespace SistemaDeportivo.Models
         public Deporte()
         {
             Alumnos = new HashSet<Alumnos>();
+            Profesores = new HashSet<Profesores>();
         }
 
         public int IdDeporte { get; set; }
@@ -20,5 +21,6 @@ namespace SistemaDeportivo.Models
 
         public virtual Horario IdHorarioNavigation { get; set; }
         public virtual ICollection<Alumnos> Alumnos { get; set; }
+        public virtual ICollection<Profesores> Profesores { get; set; }
     }
 }

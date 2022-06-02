@@ -32,6 +32,7 @@ namespace SistemaDeportivo.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Data Source=Asura;Initial Catalog=SistemaDeportivoDB;Integrated Security=True");
             }
         }
@@ -41,7 +42,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Administrator>(entity =>
             {
                 entity.HasKey(e => e.IdAdministrator)
-                    .HasName("PK__Administ__336D26FE4BEB3CD4");
+                    .HasName("PK__Administ__336D26FEE4A5A89F");
 
                 entity.Property(e => e.IdAdministrator).HasColumnName("Id_Administrator");
 
@@ -61,7 +62,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Alumnos>(entity =>
             {
                 entity.HasKey(e => e.IdAlumno)
-                    .HasName("PK__Alumnos__B996CB129702779F");
+                    .HasName("PK__Alumnos__B996CB1263A1D6C5");
 
                 entity.Property(e => e.IdAlumno).HasColumnName("Id_Alumno");
 
@@ -111,7 +112,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Credencial>(entity =>
             {
                 entity.HasKey(e => e.IdCredencial)
-                    .HasName("PK__Credenci__0E7E7088CC423693");
+                    .HasName("PK__Credenci__0E7E70882BBA324D");
 
                 entity.Property(e => e.IdCredencial).HasColumnName("Id_Credencial");
 
@@ -135,7 +136,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Deporte>(entity =>
             {
                 entity.HasKey(e => e.IdDeporte)
-                    .HasName("PK__Deporte__DE0349E215B34010");
+                    .HasName("PK__Deporte__DE0349E25C65B29F");
 
                 entity.Property(e => e.IdDeporte).HasColumnName("Id_Deporte");
 
@@ -155,7 +156,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Horario>(entity =>
             {
                 entity.HasKey(e => e.IdHorario)
-                    .HasName("PK__Horario__AD7A4DD33A5539ED");
+                    .HasName("PK__Horario__AD7A4DD327F19861");
 
                 entity.Property(e => e.IdHorario).HasColumnName("Id_Horario");
 
@@ -173,15 +174,23 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Profesores>(entity =>
             {
                 entity.HasKey(e => e.IdProfesor)
-                    .HasName("PK__Profesor__45D4152A4AFEB68B");
+                    .HasName("PK__Profesor__45D4152A4848EA93");
 
                 entity.Property(e => e.IdProfesor).HasColumnName("Id_Profesor");
+
+                entity.Property(e => e.IdDeporte).HasColumnName("Id_Deporte");
 
                 entity.Property(e => e.IdUsuario).HasColumnName("Id_Usuario");
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.HasOne(d => d.IdDeporteNavigation)
+                    .WithMany(p => p.Profesores)
+                    .HasForeignKey(d => d.IdDeporte)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_DeporteProf");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Profesores)
@@ -193,7 +202,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Rol>(entity =>
             {
                 entity.HasKey(e => e.IdRol)
-                    .HasName("PK__Rol__55932E86170BCB59");
+                    .HasName("PK__Rol__55932E861C39EA8A");
 
                 entity.Property(e => e.IdRol).HasColumnName("Id_Rol");
 
@@ -205,7 +214,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Usuarios>(entity =>
             {
                 entity.HasKey(e => e.IdUsuario)
-                    .HasName("PK__Usuarios__63C76BE24EFF63D0");
+                    .HasName("PK__Usuarios__63C76BE256F64A74");
 
                 entity.Property(e => e.IdUsuario).HasColumnName("Id_Usuario");
 
