@@ -28,11 +28,12 @@
                 <div class="card-body p-5">
                   <div class="text-center">
                     <img
-                      src="~/img/piscina.png"
+                      src="~/img/"
                       alt="Imagen Principal"
                       class="mb-4"
                       width="125px"
                       height="auto"
+                      id="imagen"
                     />
                   </div>                  
                  @if(@ViewBag.Bool){
@@ -64,12 +65,13 @@
                     </div>
                     <div class="text-center">
                       <a asp-action="Registro" asp-controller="Home">Click Aquí para registrarse</a>
-                      <button
-                        class="btn-primary btn "
-                        type="submit"                         
-                      >
-                        Iniciar Sesión
-                      </button>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button
+                        class="btn-primary btn"
+                        type="submit">
+                            Iniciar Sesión
+                        </button>
                     </div>
                   </form>
                 </div>
@@ -82,5 +84,12 @@
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        window.onload = function() { 
+            var array = ['baloncesto','fut','judo','psicina']
+            var x = Math.floor(Math.random()*3);
+            document.getElementById("imagen").src += array[x] + '.png';
+        }
+    </script>
     </body>
 </html>

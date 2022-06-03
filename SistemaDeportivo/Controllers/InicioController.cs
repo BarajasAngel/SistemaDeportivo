@@ -37,5 +37,9 @@ namespace SistemaDeportivo.Controllers
             }
             return View();
         }
+        [HttpGet]
+        public IActionResult Profesor() {
+            return View();
+        }
     }
 }

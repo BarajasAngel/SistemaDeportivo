@@ -1,0 +1,45 @@
+﻿@model Alumnos
+@{
+    ViewData["Title"] = "Profesor";
+}
+
+<h1>Bienvenido {Profesor}</h1>
+<div class="row">
+    
+<table class="table table-responsive table-striped col-12">
+<thead>
+    <tr>
+        <th scope="col">
+            @Html.DisplayNameFor(m => m.IdAlumno)
+        </th>
+        <th scope="col">
+            @Html.DisplayNameFor(m => m.Nombre)
+        </th>
+        <th scope="col">
+            @Html.DisplayNameFor(m => m.Edad)
+        </th>
+        <th scope="col">
+            @Html.DisplayNameFor(m => m.Sexo)
+        </th>
+        <th scope="col">
+            @Html.DisplayNameFor(m => m.Correo)
+        </th>
+        <th scope="col">
+            @Html.DisplayNameFor(m => m.Celular)
+        </th>            
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <th scope="row">1</th>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+    </tr>
+</tbody>
+</table>
+
+
+</div>

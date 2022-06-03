@@ -1,12 +1,11 @@
 ﻿@model Profesores
 @{
-    ViewData["Title"] = "Alumno";
-    Layout = "~/Views/Shared/_AlumnoLayout.cshtml";
+    ViewData["Title"] = "Alumno";    
 }
 <div class="d-flex justify-content-center">
     <div class="col-lg-10 col-sm-12 col-md-12 mt-3">        
         <h1>Bienvenido {Alumno}!</h1>        
-        <h2 class="mt-2">Revisa que deporte y horario más te gusta e inscribete 🏈</h2>
+        <h2 class="mt-2">Revisa que deporte y horario más te gusta e inscribete <span id="emoji"></span></h2>
         <br />
         <table class="table table-striped table-responsive">
           <thead>
@@ -93,6 +92,11 @@
   </div>
 </div>
 <script>
+    window.onload = function() { 
+        var array = ['🏈','🏀','🏐','⚽','🥋','🥇','🏅']
+        var x = Math.floor(Math.random()*6);
+        document.getElementById("emoji").innerHTML = array[x];
+    }
     function RegDep() { 
         var select = document.getElementById("select").value;
         if (select != "")

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
@@ -13,12 +14,14 @@ namespace SistemaDeportivo.Models
         {
             Credencial = new HashSet<Credencial>();
         }
-
+        [Key]
+        [Display(Name = "#")]
         public int IdAlumno { get; set; }
         public string Nombre { get; set; }
         public string ApellidoPat { get; set; }
         public string ApellidoMat { get; set; }
         public decimal Edad { get; set; }
+        [Display(Name = "Género")]
         public string Sexo { get; set; }
         public string Correo { get; set; }
         public string Celular { get; set; }
