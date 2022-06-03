@@ -1,9 +1,11 @@
-﻿@model Alumnos
+﻿@using SistemaDeportivo.Clases
+@model Alumnos
 @{
     ViewData["Title"] = "Profesor";
+    ViewData["Usuario"] = new General().Usuario;
 }
 
-<h1>Bienvenido {Profesor}</h1>
+<h1>Bienvenido @ViewData["Usuario"]</h1>
 <div class="row">
     
 <table class="table table-responsive table-striped col-12">
@@ -30,16 +32,17 @@
     </tr>
 </thead>
 <tbody>
+@foreach (var item in ViewBag.Lista)
+{
     <tr>
-        <th scope="row">1</th>
-        <td>2</td>
-        <td>3</td>
-        <td>4</td>
-        <td>5</td>
-        <td>6</td>
+        <th scope="row">@item.IdAlumno</th>
+        <td>@item.Nombre @item.ApellidoPat @item.ApellidoMat</td>
+        <td>@item.Edad</td>
+        <td>@item.Sexo</td>
+        <td>@item.Correo</td>
+        <td>@item.Celular</td>
     </tr>
+}
 </tbody>
 </table>
-
-
 </div>

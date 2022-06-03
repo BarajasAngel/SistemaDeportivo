@@ -9,6 +9,7 @@ namespace SistemaDeportivo.Controllers
     public class InicioController : Controller
     {
         AlumnoModel obj = new AlumnoModel();
+        ProfesorModel obj2 = new ProfesorModel();
 
         [HttpGet]
         [Authorize(Roles= "Alumno")]
@@ -44,8 +45,11 @@ namespace SistemaDeportivo.Controllers
             return View();
         }
         [HttpGet]
+        [Authorize(Roles = "Profesor")]
         public IActionResult Profesor() {
+            ViewBag.Lista = obj2.AlumnosList();
             return View();
         }
+
     }
 }

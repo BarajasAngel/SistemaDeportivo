@@ -59,13 +59,17 @@ namespace SistemaDeportivo.Clases
         {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
-                var getUsuario = db.Usuarios.Where(x => x.Usuario == usuario && x.Contraseña == contraseña).FirstOrDefault();
+                var getUsuario = db.Usuarios.Where(x => 
+                x.Usuario == usuario && x.Contraseña == contraseña).FirstOrDefault();
+
                 if (getUsuario != null)
                 {
                     generic.Usuario = getName(getUsuario.IdUsuario);
-                    var getRol = db.Rol.Where(x => x.IdRol == getUsuario.IdRol).FirstOrDefault().Nombre;
+                    var getRol = db.Rol.Where(x => 
+                    x.IdRol == getUsuario.IdRol).FirstOrDefault().Nombre;
                     return getRol;
                 }
+
                 return "";
             }
         }

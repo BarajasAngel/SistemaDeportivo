@@ -41,7 +41,7 @@ namespace SistemaDeportivo.Controllers
                         return RedirectToAction();
                     case "Profesor":
                         await InsertarRol(user, rol);
-                        return RedirectToAction();
+                        return RedirectToAction("Profesor","Inicio");
                     case "Alumno":
                         await InsertarRol(user, rol);
                         return RedirectToAction("Alumno", "Inicio");
@@ -83,6 +83,11 @@ namespace SistemaDeportivo.Controllers
             }
             ViewBag.Bool = false;
             return View();
+        }
+        public async Task<RedirectToActionResult> CerrarSesion()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login","Home");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
