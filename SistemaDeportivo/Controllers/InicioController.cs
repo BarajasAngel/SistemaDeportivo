@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemaDeportivo.Clases;
+using SistemaDeportivo.Models;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -50,16 +51,16 @@ namespace SistemaDeportivo.Controllers
         [Authorize(Roles = "Alumno, AlumnoInscrito")]        
         public IActionResult ConfigAlumno()
         {            
-            return View();
+            return View(obj.ReadInfo());
         }
         [HttpPost]
-        [Authorize(Roles = "Alumno")]
+        [Authorize(Roles = "Alumno,AlumnoInscrito")]
         public IActionResult ConfigAlumno(AlumnoCLS alumno) {
             if (ModelState.IsValid)
             {
-                return View();
+                return View(obj.ReadInfo());
             }
-            return View();
+            return View(obj.ReadInfo());
         }
         [HttpGet]
         [Authorize(Roles = "Profesor")]

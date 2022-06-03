@@ -2,25 +2,25 @@
 using SistemaDeportivo.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace SistemaDeportivo.Clases
 {
     public class AlumnoModel
     {
         General generic = new General();
-        public string Create(AlumnoCLS alumno) {
+        public string Create(AlumnoCLS alumno)
+        {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
                 if (Validation(alumno.Usuario, alumno.Contraseña) != "")
                 {
                     return "Este usuario ya existe";
                 }
-                Usuarios setUser = new Usuarios(){
+                Usuarios setUser = new Usuarios()
+                {
                     Usuario = alumno.Usuario,
                     Contraseña = alumno.Contraseña,
-                    IdRol = 3                   
+                    IdRol = 3
                 };
 
                 db.Add(setUser);
@@ -38,7 +38,7 @@ namespace SistemaDeportivo.Clases
                     Correo = alumno.Correo,
                     Celular = alumno.Celular,
                     IdDeporte = null,
-                    IdUsuario = getIdUsuario                    
+                    IdUsuario = getIdUsuario
                 };
 
                 try
@@ -51,21 +51,21 @@ namespace SistemaDeportivo.Clases
                 catch (System.Exception)
                 {
                     return "Hubo un error al realizar el registro, si estas viendo esto contacta con el programador";
-                    
-                }               
-            }            
+
+                }
+            }
         }
         public string Validation(string usuario, string contraseña)
         {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
-                var getUsuario = db.Usuarios.Where(x => 
+                var getUsuario = db.Usuarios.Where(x =>
                 x.Usuario == usuario && x.Contraseña == contraseña).FirstOrDefault();
 
                 if (getUsuario != null)
                 {
-                    
-                    var getRol = db.Rol.Where(x => 
+
+                    var getRol = db.Rol.Where(x =>
                     x.IdRol == getUsuario.IdRol).FirstOrDefault().Nombre;
                     generic.Usuario = getName(getUsuario.IdUsuario, getRol);
                     return getRol;
@@ -74,7 +74,8 @@ namespace SistemaDeportivo.Clases
                 return "";
             }
         }
-        private string getName(int idUsuario, string rol) {
+        private string getName(int idUsuario, string rol)
+        {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
                 var getAdmin = db.Administrator.Where(x => x.IdUsuario == idUsuario).FirstOrDefault();
@@ -88,9 +89,9 @@ namespace SistemaDeportivo.Clases
                     return $"{getProfesor.Nombre}";
                 }
                 var getAlumno = db.Alumnos.Where(x => x.IdUsuario == idUsuario).FirstOrDefault();
-                if (getAlumno!=null)
+                if (getAlumno != null)
                 {
-                    var getDeporte = db.Deporte.Where(x => 
+                    var getDeporte = db.Deporte.Where(x =>
                         x.IdDeporte == getAlumno.IdDeporte).FirstOrDefault();
                     if (getDeporte != null)
                     {
@@ -101,7 +102,7 @@ namespace SistemaDeportivo.Clases
                     return $"{getAlumno.Nombre} {getAlumno.ApellidoPat} {getAlumno.ApellidoMat}";
                 }
                 return "";
-            }        
+            }
         }
         public List<ProfesorCLS> Read()
         {
@@ -114,24 +115,49 @@ namespace SistemaDeportivo.Clases
                 for (int i = 0; i < listProf.Count; i++)
                 {
                     var listDeporte = db.Deporte.Where(x => x.IdDeporte == listProf[i].IdDeporte).First();
-                    var lisHorario = db.Horario.Where(x => x.IdHorario == listDeporte.IdHorario).First();                    
+                    var lisHorario = db.Horario.Where(x => x.IdHorario == listDeporte.IdHorario).First();
 
-                        getProfes.Add(new ProfesorCLS
-                        {
-                            IdProfesor = listProf[i].IdProfesor,
-                            Nombre = listProf[i].Nombre,
-                            NombreDeporte = listDeporte.NombreDeporte,
-                            Lunes = lisHorario.Lunes,
-                            Marte = lisHorario.Marte,
-                            Miercoles = lisHorario.Miercoles,
-                            Jueves = lisHorario.Jueves,
-                            Viernes = lisHorario.Viernes,
-                        });                    
-                }               
+                    getProfes.Add(new ProfesorCLS
+                    {
+                        IdProfesor = listProf[i].IdProfesor,
+                        Nombre = listProf[i].Nombre,
+                        NombreDeporte = listDeporte.NombreDeporte,
+                        Lunes = lisHorario.Lunes,
+                        Marte = lisHorario.Marte,
+                        Miercoles = lisHorario.Miercoles,
+                        Jueves = lisHorario.Jueves,
+                        Viernes = lisHorario.Viernes,
+                    });
+                }
                 return getProfes;
-            }            
+            }
         }
-        public bool Update(string deporte) {
+        public AlumnoCLS ReadInfo()
+        {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                var getInfo = db.Alumnos.Where(x =>
+                x.IdAlumno == generic.IdAlumno).First();
+                var getUser = db.Usuarios.Where(x =>
+                x.IdUsuario == getInfo.IdUsuario).First();
+
+                AlumnoCLS getAlumno = new AlumnoCLS()
+                {
+                    Usuario = getUser.Usuario,
+                    Nombre = getInfo.Nombre,
+                    ApellidoPat = getInfo.ApellidoPat,
+                    ApellidoMat = getInfo.ApellidoMat,
+                    Edad = getInfo.Edad,
+                    Sexo = getInfo.Sexo,
+                    Correo = getInfo.Correo,
+                    Celular = getInfo.Celular
+                };
+
+                return getAlumno;
+            }
+        }
+        public bool Update(string deporte)
+        {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
                 var getAlumno = db.Alumnos.Where(x => x.IdAlumno == generic.IdAlumno).First();
@@ -139,7 +165,7 @@ namespace SistemaDeportivo.Clases
                 var getUsuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno.IdUsuario).First();
                 getUsuario.IdRol = 4;
                 try
-                {                    
+                {
                     db.Update(getAlumno);
                     db.Update(getUsuario);
                     db.SaveChanges();
@@ -153,8 +179,23 @@ namespace SistemaDeportivo.Clases
                 }
             }
         }
-        public string Delete() {
-            return "";
-        }        
+        public bool Update(Alumnos alumnos)
+        {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                try
+                {
+                    db.Update(alumnos);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (System.Exception)
+                {
+
+                    return false;
+                }
+            }
+        }
+
     }
 }
