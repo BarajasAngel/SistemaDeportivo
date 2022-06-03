@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SistemaDeportivo.Clases;
 using SistemaDeportivo.Models;
 using System.Collections.Generic;
@@ -10,26 +11,31 @@ namespace SistemaDeportivo.Controllers
         AlumnoModel obj = new AlumnoModel();
 
         [HttpGet]
+        [Authorize(Roles= "Alumno")]
         public IActionResult Alumno() {
             ViewBag.List = obj.Read();
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Alumno")]
         public IActionResult Alumno(string Deporte)
         {             
             return RedirectToAction("AlumnoInscito");
         }
         [HttpGet]
+        [Authorize(Roles = "Alumno")]
         public IActionResult AlumnoInscito()
         {
             return View();
         }
         [HttpGet]
+        [Authorize(Roles = "Alumno")]
         public IActionResult ConfigAlumno()
         {            
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Alumno")]
         public IActionResult ConfigAlumno(AlumnoCLS alumno) {
             if (ModelState.IsValid)
             {

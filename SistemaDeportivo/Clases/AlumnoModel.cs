@@ -1,15 +1,19 @@
-﻿using SistemaDeportivo.Models;
+﻿
+using SistemaDeportivo.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace SistemaDeportivo.Clases
 {
     public class AlumnoModel
     {
+        General generic = new General();
         public string Create(AlumnoCLS alumno) {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
-                if (Validation(alumno.Usuario,alumno.Contraseña))
+                if (Validation(alumno.Usuario, alumno.Contraseña) != "")
                 {
                     return "Este usuario ya existe";
                 }
@@ -51,17 +55,40 @@ namespace SistemaDeportivo.Clases
                 }               
             }            
         }
-        public bool Validation(string usuario, string contraseña)
+        public string Validation(string usuario, string contraseña)
         {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
                 var getUsuario = db.Usuarios.Where(x => x.Usuario == usuario && x.Contraseña == contraseña).FirstOrDefault();
                 if (getUsuario != null)
                 {
-                    return true;
+                    generic.Usuario = getName(getUsuario.IdUsuario);
+                    var getRol = db.Rol.Where(x => x.IdRol == getUsuario.IdRol).FirstOrDefault().Nombre;
+                    return getRol;
                 }
-                return false;
+                return "";
             }
+        }
+        private string getName(int idUsuario) {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                var getAdmin = db.Administrator.Where(x => x.IdUsuario == idUsuario).FirstOrDefault();
+                if (getAdmin != null)
+                {
+                    return $"{getAdmin.Nombre}";
+                }
+                var getProfesor = db.Profesores.Where(x => x.IdUsuario == idUsuario).FirstOrDefault();
+                if (getProfesor != null)
+                {
+                    return $"{getProfesor.Nombre}";
+                }
+                var getAlumno = db.Alumnos.Where(x => x.IdUsuario == idUsuario).FirstOrDefault();
+                if (getAlumno!=null)
+                {
+                    return $"{getAlumno.Nombre} {getAlumno.ApellidoPat} {getAlumno.ApellidoMat}";
+                }
+                return "";
+            }        
         }
         public List<ProfesorCLS> Read()
         {

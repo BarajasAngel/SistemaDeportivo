@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SistemaDeportivo.Clases;
 using SistemaDeportivo.Models;
@@ -6,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SistemaDeportivo.Controllers
@@ -26,18 +29,43 @@ namespace SistemaDeportivo.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Login(Usuarios user)
-        {
+        public async Task<IActionResult> LoginAsync(Usuarios user)
+        {            
             if (ModelState.IsValid) {
-                if (obj.Validation(user.Usuario,user.Contraseña))
-                {                   
-                    return Content("Hola mundo");
-                }
-                ViewBag.Bool = true;
-                return View();
+                string rol = obj.Validation(user.Usuario, user.Contraseña);
+                ViewData["Rol"] = rol;
+                switch (rol)
+                {
+                    case "Administrador":
+                        await InsertarRol(user, rol);
+                        return RedirectToAction();
+                    case "Profesor":
+                        await InsertarRol(user, rol);
+                        return RedirectToAction();
+                    case "Alumno":
+                        await InsertarRol(user, rol);
+                        return RedirectToAction("Alumno", "Inicio");
+                    case "AlumnoInscrito":
+                        await InsertarRol(user, rol);
+                        return RedirectToAction();
+                    default:
+                        ViewBag.Bool = true;
+                        return View();                        
+                }                
             }
             ViewBag.Bool = false;
             return View();
+        }
+        private async Task<string> InsertarRol(Usuarios user, string rol) {
+            var claimsAdmin = new List<Claim>
+                        {
+                            new Claim("Usuario", user.Usuario),
+                            new Claim("Contraseña", user.Contraseña),
+                        };
+            claimsAdmin.Add(new Claim(ClaimTypes.Role, rol));
+            var claimsIdentityAdmin = new ClaimsIdentity(claimsAdmin, CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentityAdmin));
+            return "";
         }
         [HttpGet]
         public IActionResult Registro() {
