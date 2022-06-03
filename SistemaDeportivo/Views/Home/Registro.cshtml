@@ -152,7 +152,7 @@
                       <span asp-validation-for="Correo" class="text-danger"></span>
                     </div>
                     @*------------------------------------------------------------*@
-                    <div class="mb-4 col-lg-6">
+                    <div class="mb-4 col-lg-12">
                       <label
                         asp-for="Celular"
                         class="col-form-label col-form-label-lg"></label>
@@ -163,23 +163,7 @@
                       />
                       <span asp-validation-for="Celular" class="text-danger"></span>
                     </div>
-                    @*------------------------------------------------------------*@
-                    <div class="mb-4 col-lg-6">
-                      <label
-                        asp-for="IdDeporte"
-                        class="col-form-label col-form-label-lg"></label>
-                      <select asp-for="IdDeporte"
-                          class="form-control form-control-lg form-select">   
-                          <option value="" disabled selected>Selecciona una opción</option>
-                          <option value="1">Futbol Soccer</option>
-                          <option value="2">Basquetbol</option>
-                          <option value="3">Futbol Americano</option>
-                          <option value="4">Taekwondo</option>
-                          <option value="5">Karate</option>
-                      </select> 
-                      <span asp-validation-for="IdDeporte" class="text-danger"></span>
-                    </div>
-                    @*------------------------------------------------------------*@
+                    @*------------------------------------------------------------*@                    
                     <div class="text-center col-12"> 
                       <button
                         class="btn-primary btn form-control"

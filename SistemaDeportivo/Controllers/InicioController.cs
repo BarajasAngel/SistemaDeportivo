@@ -10,9 +10,14 @@ namespace SistemaDeportivo.Controllers
         AlumnoModel obj = new AlumnoModel();
 
         [HttpGet]
-        public IActionResult Alumno(){
+        public IActionResult Alumno() {
             ViewBag.List = obj.Read();
             return View();
+        }
+        [HttpPost]
+        public IActionResult Alumno(string Deporte)
+        {            
+            return RedirectToAction("AlumnoInscrito");
         }
         [HttpGet]
         public IActionResult AlumnoInscito()

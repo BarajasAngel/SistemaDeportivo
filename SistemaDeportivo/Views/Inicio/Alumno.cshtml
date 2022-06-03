@@ -46,9 +46,61 @@
           </tbody>
         </table>
         <div class="w-100 d-flex justify-content-end mt-2">
-            <button asp-action="" asp-controller="" class="btn btn-primary">
+            <button                 
+                type="button" class="btn btn-primary" 
+                data-toggle="modal" 
+                data-target="#RegistroModal">                
                 Registrar
             </button>
         </div>
     </div>
+</div>                   
+
+<!-- Modal -->
+<div class="modal fade" id="RegistroModal" tabindex="-1" role="dialog" aria-labelledby="RegistroModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="RegistroModalLabel">Escoge el deporte</h5>
+        <button type="button" onclick="cerrar()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">        
+        <form asp-action="Alumno" asp-controller="Inicio" id="frmDeporte">
+            <div class="mb-4 col-lg-12">
+              <label
+                for="lblDeporte"
+                class="col-form-label col-form-label-lg">Deporte</label>
+              <select name="Deporte" id="select"
+                  class="form-control form-control-lg form-select">   
+                  <option value="" disabled selected>Selecciona una opción</option>
+                  <option value="1">Futbol Soccer</option>
+                  <option value="2">Basquetbol</option>
+                  <option value="3">Futbol Americano</option>
+                  <option value="4">Taekwondo</option>
+                  <option value="5">Karate</option>
+              </select>
+              <span class="text-danger" id="Error"></span>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="cerrar()" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" onclick="RegDep()">Registro</button>
+      </div>
+    </div>
+  </div>
 </div>
+<script>
+    function RegDep() { 
+        var select = document.getElementById("select").value;
+        if (select != "")
+            frmDeporte.submit();
+        else
+            document.getElementById("Error").innerHTML = 'Selecciona una opcion valida';
+    }
+    function cerrar() {
+        document.getElementById("Error").innerHTML = '';
+    }
+</script>
