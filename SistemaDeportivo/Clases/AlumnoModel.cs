@@ -64,7 +64,6 @@ namespace SistemaDeportivo.Clases
 
                 if (getUsuario != null)
                 {
-
                     var getRol = db.Rol.Where(x =>
                     x.IdRol == getUsuario.IdRol).FirstOrDefault().Nombre;
                     generic.Usuario = getName(getUsuario.IdUsuario, getRol);
@@ -81,11 +80,13 @@ namespace SistemaDeportivo.Clases
                 var getAdmin = db.Administrator.Where(x => x.IdUsuario == idUsuario).FirstOrDefault();
                 if (getAdmin != null)
                 {
+                    generic.Rol = rol;
                     return $"{getAdmin.Nombre}";
                 }
                 var getProfesor = db.Profesores.Where(x => x.IdUsuario == idUsuario).FirstOrDefault();
                 if (getProfesor != null)
                 {
+                    generic.Rol = rol;
                     return $"{getProfesor.Nombre}";
                 }
                 var getAlumno = db.Alumnos.Where(x => x.IdUsuario == idUsuario).FirstOrDefault();

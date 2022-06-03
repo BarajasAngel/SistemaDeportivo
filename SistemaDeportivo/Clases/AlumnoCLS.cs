@@ -4,6 +4,8 @@ namespace SistemaDeportivo.Clases
 {
 	public class AlumnoCLS
 	{
+		[Display(Name = "#")]
+		public int IdAlumno { get; set; }
 		[Required(ErrorMessage = "Se requiere un usuario valido")]
 		[StringLength(10, MinimumLength = 10,
 			ErrorMessage = "Tu usuario debe contener 10 caracteres")]

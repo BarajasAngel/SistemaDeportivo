@@ -33,16 +33,14 @@
             <span class="navbar-toggler-icon"></span>
           </button>          
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">              
-                @switch (ViewData["Rol"])
+            <ul class="navbar-nav mr-auto">  
+                @if (ViewData["Rol"].ToString() == "Alumno" ||
+                ViewData["Rol"].ToString() == "AlumnoInscrito")
                 {
-                    case"Alumno":
-                    case"AlumnoInscrito":
-                        <li class="nav-item">
-                            <a class="nav-link" asp-action="ConfigAlumno">Configuracion</a>
-                        </li>         
-                        break;
-                }                              
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="ConfigAlumno">Configuracion</a>
+                    </li>         
+                }                                           
               <li class="nav-item">
                 <a class="nav-link" asp-action="CerrarSesion" asp-controller="Home">Cerrar Sesion</a>
               </li>         
@@ -67,4 +65,3 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
-

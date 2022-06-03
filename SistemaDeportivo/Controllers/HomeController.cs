@@ -38,7 +38,7 @@ namespace SistemaDeportivo.Controllers
                 {
                     case "Administrador":
                         await InsertarRol(user, rol);
-                        return RedirectToAction();
+                        return RedirectToAction("Alumno", "Administrador");
                     case "Profesor":
                         await InsertarRol(user, rol);
                         return RedirectToAction("Profesor","Inicio");
