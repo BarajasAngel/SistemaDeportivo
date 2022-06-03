@@ -2,7 +2,14 @@
 {
     public class General
     {
-        private static string usuario;        
-        public string Usuario { get => usuario; set => usuario = value; }        
+        private static string usuario;
+        private static string rol;
+        private static string deporte;
+        private static int idAlumno;
+
+        public string Usuario { get => usuario; set => usuario = value; }
+        public string Rol { get => rol; set => rol = value; }
+        public string Deporte { get => deporte; set => deporte = value; }
+        public int IdAlumno { get => idAlumno; set => idAlumno = value; }
     }
 }

@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemaDeportivo.Clases;
-using SistemaDeportivo.Models;
 using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace SistemaDeportivo.Controllers
 {
@@ -15,22 +18,36 @@ namespace SistemaDeportivo.Controllers
         [Authorize(Roles= "Alumno")]
         public IActionResult Alumno() {
             ViewBag.List = obj.Read();
+            ViewBag.Bool = false;
             return View();
         }
         [HttpPost]
         [Authorize(Roles = "Alumno")]
-        public IActionResult Alumno(string Deporte)
-        {             
-            return RedirectToAction("AlumnoInscito");
+        public async Task<IActionResult> Alumno(string Deporte)
+        {
+            if (obj.Update(Deporte))
+            {
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var claimsAdmin = new List<Claim>();                        
+                claimsAdmin.Add(new Claim(ClaimTypes.Role, "AlumnoInscrito"));
+                var claimsIdentityAdmin = new ClaimsIdentity(claimsAdmin, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentityAdmin));
+
+                return RedirectToAction("AlumnoInscrito");
+            }
+            ViewBag.Bool = true;            
+            return View();
         }
         [HttpGet]
-        [Authorize(Roles = "Alumno")]
-        public IActionResult AlumnoInscito()
+        [Authorize(Roles = "AlumnoInscrito")]
+        public IActionResult AlumnoInscrito()
         {
             return View();
         }
         [HttpGet]
-        [Authorize(Roles = "Alumno")]
+        [Authorize(Roles = "Alumno, AlumnoInscrito")]        
         public IActionResult ConfigAlumno()
         {            
             return View();
@@ -49,7 +66,7 @@ namespace SistemaDeportivo.Controllers
         public IActionResult Profesor() {
             ViewBag.Lista = obj2.AlumnosList();
             return View();
-        }
+        }        
 
     }
 }

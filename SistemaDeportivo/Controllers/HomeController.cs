@@ -47,7 +47,7 @@ namespace SistemaDeportivo.Controllers
                         return RedirectToAction("Alumno", "Inicio");
                     case "AlumnoInscrito":
                         await InsertarRol(user, rol);
-                        return RedirectToAction();
+                        return RedirectToAction("AlumnoInscrito", "Inicio");
                     default:
                         ViewBag.Bool = true;
                         return View();                        

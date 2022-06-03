@@ -64,16 +64,17 @@ namespace SistemaDeportivo.Clases
 
                 if (getUsuario != null)
                 {
-                    generic.Usuario = getName(getUsuario.IdUsuario);
+                    
                     var getRol = db.Rol.Where(x => 
                     x.IdRol == getUsuario.IdRol).FirstOrDefault().Nombre;
+                    generic.Usuario = getName(getUsuario.IdUsuario, getRol);
                     return getRol;
                 }
 
                 return "";
             }
         }
-        private string getName(int idUsuario) {
+        private string getName(int idUsuario, string rol) {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
                 var getAdmin = db.Administrator.Where(x => x.IdUsuario == idUsuario).FirstOrDefault();
@@ -89,6 +90,14 @@ namespace SistemaDeportivo.Clases
                 var getAlumno = db.Alumnos.Where(x => x.IdUsuario == idUsuario).FirstOrDefault();
                 if (getAlumno!=null)
                 {
+                    var getDeporte = db.Deporte.Where(x => 
+                        x.IdDeporte == getAlumno.IdDeporte).FirstOrDefault();
+                    if (getDeporte != null)
+                    {
+                        generic.Deporte = getDeporte.NombreDeporte;
+                    }
+                    generic.Rol = rol;
+                    generic.IdAlumno = getAlumno.IdAlumno;
                     return $"{getAlumno.Nombre} {getAlumno.ApellidoPat} {getAlumno.ApellidoMat}";
                 }
                 return "";
@@ -122,12 +131,30 @@ namespace SistemaDeportivo.Clases
                 return getProfes;
             }            
         }
-        public string Update() {
-            return "";
+        public bool Update(string deporte) {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                var getAlumno = db.Alumnos.Where(x => x.IdAlumno == generic.IdAlumno).First();
+                getAlumno.IdDeporte = int.Parse(deporte);
+                var getUsuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno.IdUsuario).First();
+                getUsuario.IdRol = 4;
+                try
+                {                    
+                    db.Update(getAlumno);
+                    db.Update(getUsuario);
+                    db.SaveChanges();
+
+                    return true;
+                }
+                catch (System.Exception)
+                {
+
+                    return false;
+                }
+            }
         }
         public string Delete() {
             return "";
-        }
-        
+        }        
     }
 }

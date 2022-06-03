@@ -1,0 +1,22 @@
+﻿@using SistemaDeportivo.Clases
+
+@{
+    ViewData["Title"] = "AlumnoInscrito";
+    ViewData["Usuario"] = new General().Usuario;
+    ViewData["Deporte"] = new General().Deporte;
+    ViewData["Rol"] = new General().Rol;
+}
+
+<h1>Bienvenido @ViewData["Usuario"]!</h1>
+@if(ViewData["Deporte"].ToString() != "")
+{
+    <h3>Estas inscrito en @ViewData["Deporte"]</h3>
+}else
+{
+    <h3>Tú inscripcion ha terminado.</h3>
+}
+<p>
+    Para poder ingresar necesitaras tener una credencial, 
+    la cual podrás adquirir en el siguiente <a href="#">enlace</a>    
+</p>
+
