@@ -1,4 +1,5 @@
 ﻿using SistemaDeportivo.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SistemaDeportivo.Clases
@@ -62,9 +63,33 @@ namespace SistemaDeportivo.Clases
                 return false;
             }
         }
-        public string Read()
+        public List<ProfesorCLS> Read()
         {
-            return "";
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                var listProf = db.Profesores.ToList();
+
+                List<ProfesorCLS> getProfes = new List<ProfesorCLS>();
+
+                for (int i = 0; i < listProf.Count; i++)
+                {
+                    var listDeporte = db.Deporte.Where(x => x.IdDeporte == listProf[i].IdDeporte).First();
+                    var lisHorario = db.Horario.Where(x => x.IdHorario == listDeporte.IdHorario).First();                    
+
+                        getProfes.Add(new ProfesorCLS
+                        {
+                            IdProfesor = listProf[i].IdProfesor,
+                            Nombre = listProf[i].Nombre,
+                            NombreDeporte = listDeporte.NombreDeporte,
+                            Lunes = lisHorario.Lunes,
+                            Marte = lisHorario.Marte,
+                            Miercoles = lisHorario.Miercoles,
+                            Jueves = lisHorario.Jueves,
+                            Viernes = lisHorario.Viernes,
+                        });                    
+                }               
+                return getProfes;
+            }            
         }
         public string Update() {
             return "";
