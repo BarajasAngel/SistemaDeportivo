@@ -16,8 +16,8 @@ namespace SistemaDeportivo.Controllers
         }
         [HttpPost]
         public IActionResult Alumno(string Deporte)
-        {            
-            return RedirectToAction("AlumnoInscrito");
+        {             
+            return RedirectToAction("AlumnoInscito");
         }
         [HttpGet]
         public IActionResult AlumnoInscito()
@@ -26,7 +26,15 @@ namespace SistemaDeportivo.Controllers
         }
         [HttpGet]
         public IActionResult ConfigAlumno()
-        {
+        {            
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ConfigAlumno(AlumnoCLS alumno) {
+            if (ModelState.IsValid)
+            {
+                return View();
+            }
             return View();
         }
     }

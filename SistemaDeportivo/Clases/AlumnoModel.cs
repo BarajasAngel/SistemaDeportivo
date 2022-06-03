@@ -33,7 +33,7 @@ namespace SistemaDeportivo.Clases
                     Sexo = alumno.Sexo,
                     Correo = alumno.Correo,
                     Celular = alumno.Celular,
-                    IdDeporte = int.Parse(alumno.IdDeporte),
+                    IdDeporte = null,
                     IdUsuario = getIdUsuario                    
                 };
 
