@@ -1,11 +1,12 @@
 ﻿@using SistemaDeportivo.Clases
+
 @model ProfesorCLS
 @{
-    ViewData["Title"] = "ModificarProfesor";
+    ViewData["Title"] = "AgregarProfesor";
     ViewData["Rol"] = new General().Rol;
 }
 
-<h1>Modificar Profesor</h1>
+<h1>Agregar Profesor</h1>
 <br />
 @if (ViewBag.Bool == 1)
 {
@@ -24,25 +25,34 @@
         </button>
     </div>    
 }
-<form asp-action="ModificarProfesor" asp-controller="Administrador" method="post" class="row">
+<form asp-action="AgregarProfesor" asp-controller="Administrador" method="post" class="row">
     <div class="form-group ">        
-        <input type="hidden" asp-for="IdProfesor" class="form-control" />                
-        <input type="hidden" asp-for="Contraseña" value="1" class="form-control" />                
-        <input type="hidden" asp-for="ConfirmarContraseña" value="1" class="form-control" />                
+        <input type="hidden" asp-for="IdProfesor" value="EasterEgg" value="1" class="form-control" />                       
     </div>         
-    <div class="form-group col-6">        
+
+    <div class="form-group col-4">        
         <label asp-for="Usuario" class="col-form-label-lg"></label>
-        <input asp-for="Usuario" class="form-control" readonly/>
+        <input asp-for="Usuario" class="form-control"/>
         <span asp-validation-for="Usuario" class="text-danger"></span>
     </div>                             
+    <div class="form-group col-4">                
+        <label asp-for="Contraseña" class="col-form-label-lg"></label>
+        <input asp-for="Contraseña" class="form-control" />                        
+        <span asp-validation-for="Contraseña" class="text-danger"></span>
+    </div>         
+    <div class="form-group col-4">                        
+        <label asp-for="ConfirmarContraseña" class="col-form-label-lg"></label>
+        <input asp-for="ConfirmarContraseña" class="form-control" />
+        <span asp-validation-for="ConfirmarContraseña" class="text-danger"></span>
+    </div>         
     <div class="form-group col-6">
         <label asp-for="Nombre" class="col-form-label-lg"></label>
         <input asp-for="Nombre" class="form-control" />
         <span asp-validation-for="Nombre" class="text-danger"></span>
     </div>                             
-    <div class="form-group col-12">
+    <div class="form-group col-6">
         <label asp-for="NombreDeporte" class="col-form-label-lg"></label>
-        <input asp-for="NombreDeporte" class="form-control" readonly/>
+        <input asp-for="NombreDeporte" class="form-control"/>
         <span asp-validation-for="NombreDeporte" class="text-danger"></span>
     </div>                             
     <div class="form-group col-4">
@@ -72,7 +82,7 @@
     </div>                             
     <div class="col-12 d-flex justify-content-end">
         <button type="submit" class="btn btn-primary p-3">
-            Modificar Datos
+            Agregar Profesor
         </button>
     </div>
 </form>

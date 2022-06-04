@@ -9,25 +9,25 @@ namespace SistemaDeportivo.Controllers
     public class AdministradorController : Controller
     {
         AdministradorModel obj = new AdministradorModel();
-        
-        [HttpGet]        
-        public IActionResult Alumno(){
-            ViewBag.list = obj.listAlumnos();            
+
+        [HttpGet]
+        public IActionResult Alumno() {
+            ViewBag.list = obj.listAlumnos();
             ViewBag.Mensaje = TempData["mensaje"];
             return View();
         }
         [HttpGet]
         public IActionResult ModificarAlumno(int id)
-        {            
+        {
             return View(obj.getAlumno(id));
         }
-        [HttpPost]        
+        [HttpPost]
         public IActionResult ModificarAlumno(Alumnos alumno)
         {
             if (ModelState.IsValid)
             {
                 ViewBag.Bool = obj.UpdateAlumno(alumno);
-            }            
+            }
             return View();
         }
         [HttpPost]
@@ -42,7 +42,7 @@ namespace SistemaDeportivo.Controllers
             {
                 TempData["mensaje"] = "2";
                 ViewBag.Bool = "No pudimos eliminar a este alumno";
-            }            
+            }
             return RedirectToAction("Alumno");
         }
         [HttpGet]
@@ -63,7 +63,21 @@ namespace SistemaDeportivo.Controllers
             if (ModelState.IsValid)
             {
                 ViewBag.Bool = obj.UpdateProfesor(profesor);
-            }            
+            }
+            return View();
+        }
+        [HttpGet]
+        public IActionResult AgregarProfesor(){
+            ViewBag.Bool = 0;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AgregarProfesor(ProfesorCLS profesor)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Bool = obj.CreateProfesor(profesor);
+            }
             return View();
         }
         [HttpPost]
