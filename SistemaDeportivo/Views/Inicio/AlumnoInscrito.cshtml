@@ -8,7 +8,7 @@
 }
 
 <h1>Bienvenido @ViewData["Usuario"]!</h1>
-@if(ViewData["Deporte"].ToString() != "")
+@if(ViewData["Deporte"] != null)
 {
     <h3>Estas inscrito en @ViewData["Deporte"]</h3>
 }else

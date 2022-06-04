@@ -163,12 +163,19 @@ namespace SistemaDeportivo.Clases
             {
                 var getAlumno = db.Alumnos.Where(x => x.IdAlumno == generic.IdAlumno).First();
                 getAlumno.IdDeporte = int.Parse(deporte);
+                var getProfe = db.Profesores.Where(x => x.IdDeporte == getAlumno.IdDeporte).First();
                 var getUsuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno.IdUsuario).First();
                 getUsuario.IdRol = 4;
                 try
                 {
                     db.Update(getAlumno);
                     db.Update(getUsuario);
+
+                    db.Credencial.Add(new Credencial {
+                        IdProfesor = getProfe.IdProfesor,
+                        IdAlumno = getAlumno.IdAlumno
+                    });
+
                     db.SaveChanges();
 
                     return true;

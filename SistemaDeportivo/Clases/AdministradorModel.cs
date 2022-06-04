@@ -15,7 +15,7 @@ namespace SistemaDeportivo.Clases
                 {
                     var getUsuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno[i].IdUsuario).First();
                     list.Add(new AlumnoCLS { 
-                        IdAlumno = getUsuario.IdUsuario,
+                        IdAlumno = getAlumno[i].IdAlumno,
                         Usuario = getUsuario.Usuario,
                         Nombre = getAlumno[i].Nombre,
                         ApellidoPat = getAlumno[i].ApellidoPat,
@@ -28,6 +28,128 @@ namespace SistemaDeportivo.Clases
                 }
                 return list;
             }                        
-        } 
+        }
+        public bool DeleteAlumno(int id)
+        {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                var getCredencial = db.Credencial.Where(x => 
+                    x.IdAlumno == id).FirstOrDefault();
+
+                var getAlumno = db.Alumnos.Where(x => 
+                    x.IdAlumno == id).First();
+
+                var getUsuario = db.Usuarios.Where(x => 
+                    x.IdUsuario == getAlumno.IdUsuario).First();
+
+                try
+                {
+                    if (getCredencial != null)
+                    {
+                        db.Credencial.Remove(getCredencial); 
+                    }
+                    db.Alumnos.Remove(getAlumno);
+                    db.Usuarios.Remove(getUsuario);
+
+                    db.SaveChanges();
+
+                    return true;
+                }
+                catch (System.Exception)
+                {
+                    return false;
+                }
+            }
+        }
+        public List<ProfesorCLS> listProfesores() {
+
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                var listProf = db.Profesores.ToList();
+
+                List<ProfesorCLS> getProfes = new List<ProfesorCLS>();
+
+                for (int i = 0; i < listProf.Count; i++)
+                {
+                    var listDeporte = db.Deporte.Where(x => x.IdDeporte == listProf[i].IdDeporte).First();
+                    var lisHorario = db.Horario.Where(x => x.IdHorario == listDeporte.IdHorario).First();
+                    var getUsuario = db.Usuarios.Where(x => x.IdUsuario == listProf[i].IdUsuario).First();
+
+                    getProfes.Add(new ProfesorCLS
+                    {
+                        IdProfesor = listProf[i].IdProfesor,
+                        Usuario = getUsuario.Usuario,
+                        Nombre = listProf[i].Nombre,
+                        NombreDeporte = listDeporte.NombreDeporte,
+                        Lunes = lisHorario.Lunes,
+                        Marte = lisHorario.Marte,
+                        Miercoles = lisHorario.Miercoles,
+                        Jueves = lisHorario.Jueves,
+                        Viernes = lisHorario.Viernes,
+                    });
+                }
+                return getProfes;
+            }
+        }
+        public bool DeleteProfesor(int id) {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                var getProfe = db.Profesores.Where(x =>
+                    x.IdProfesor == id).First();
+                var getCredencial = db.Credencial.Where(x =>
+                    x.IdProfesor == id).ToList();
+                var getUsuario = db.Usuarios.Where(x =>
+                    x.IdUsuario == getProfe.IdUsuario).First();                
+
+                if (getCredencial.Count == 0)
+                {
+                    try
+                    {
+                        db.Remove(getProfe);
+                        db.Remove(getUsuario);
+
+                        db.SaveChanges();
+
+                        return true;
+                    }
+                    catch (System.Exception)
+                    {
+
+                        return false;
+                    }
+                }
+
+                for (int i = 0; i < getCredencial.Count; i++)
+                {
+                    var getAlumno = db.Alumnos.Where(x =>
+                        x.IdAlumno == getCredencial[i].IdAlumno).First();
+                    getAlumno.IdDeporte = null;
+                    var getUsuarioAlumno = db.Usuarios.Where(x =>
+                    x.IdUsuario == getAlumno.IdUsuario).First();
+                    getUsuarioAlumno.IdRol = 3;
+
+                    db.Usuarios.Update(getUsuarioAlumno);
+                    db.Alumnos.Update(getAlumno);
+                    db.Credencial.Remove(getCredencial[i]);
+
+                    db.SaveChanges();                    
+                }
+
+                try
+                {
+                    db.Profesores.Remove(getProfe);
+                    db.Usuarios.Remove(getUsuario);
+
+                    db.SaveChanges();
+
+                    return true;
+                }
+                catch (System.Exception)
+                {
+                    return false;
+                }
+            }
+        
+        }
     }
 }
