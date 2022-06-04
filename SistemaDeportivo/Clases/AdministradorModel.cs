@@ -121,6 +121,75 @@ namespace SistemaDeportivo.Clases
                 return getProfes;
             }
         }
+        public ProfesorCLS getProfesor(int id)
+        {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                var getInfo = db.Profesores.Where(x =>
+                    x.IdProfesor == id).First();
+                var getUsuario = db.Usuarios.Where(x =>
+                    x.IdUsuario == getInfo.IdUsuario).First();
+                var getDeporte = db.Deporte.Where(x =>
+                    x.IdDeporte == getInfo.IdDeporte).First();
+                var getHorario = db.Horario.Where(x =>
+                    x.IdHorario == getDeporte.IdHorario).First();
+
+                ProfesorCLS prof = new ProfesorCLS() { 
+                    IdProfesor = id,
+                    Usuario = getUsuario.Usuario,
+                    Nombre = getInfo.Nombre,
+                    NombreDeporte = getDeporte.NombreDeporte,
+                    Lunes = getHorario.Lunes,
+                    Marte = getHorario.Marte,
+                    Miercoles = getHorario.Miercoles,
+                    Jueves = getHorario.Jueves,
+                    Viernes = getHorario.Viernes
+                };
+
+                return prof;
+            }
+
+        }
+        public int UpdateProfesor(ProfesorCLS profesor) {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext()) {                
+
+                var getDeporte = db.Deporte.Where(x =>
+                    x.NombreDeporte == profesor.NombreDeporte).First();
+                var setHorario = db.Horario.Where(x =>
+                    x.IdHorario == getDeporte.IdHorario).First();
+                var getUsuario = db.Usuarios.Where(x =>
+                    x.Usuario == profesor.Usuario).First();
+
+                Profesores setProfesor = new Profesores()
+                {
+                    IdProfesor = profesor.IdProfesor,
+                    Nombre = profesor.Nombre,
+                    IdDeporte = getDeporte.IdDeporte,
+                    IdUsuario = getUsuario.IdUsuario
+                };
+
+                setHorario.Lunes = profesor.Lunes;
+                setHorario.Marte = profesor.Marte;
+                setHorario.Miercoles = profesor.Miercoles;
+                setHorario.Jueves = profesor.Jueves;
+                setHorario.Viernes = profesor.Viernes;
+
+                try
+                {
+                    db.Profesores.Update(setProfesor);
+                    db.Horario.Update(setHorario);
+
+                    db.SaveChanges();
+
+                    return 1;
+                }
+                catch (System.Exception)
+                {
+
+                    return 2;
+                }
+            }
+        }
         public bool DeleteProfesor(int id) {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {

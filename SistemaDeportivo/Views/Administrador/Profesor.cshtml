@@ -87,7 +87,11 @@
                     @item.Viernes
                 </td>
                 <td>
-                    <a href="">Modificar</a>
+                    <a class="btn btn-primary"
+                       asp-action="ModificarProfesor"
+                       asp-controller="Administrador"
+                       asp-route-id="@item.IdProfesor"
+                    >Modificar</a>
                 </td>
                 <td>
                     <button class="btn btn-danger" onclick="Eliminar(@item.IdProfesor)">Eliminar</button>

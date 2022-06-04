@@ -51,14 +51,19 @@ namespace SistemaDeportivo.Controllers
             ViewBag.Mensaje = TempData["mensaje"];
             return View();
         }
+        [HttpGet]
+        public IActionResult ModificarProfesor(int id)
+        {
+            ViewBag.Bool = 0;
+            return View(obj.getProfesor(id));
+        }
         [HttpPost]
-        public IActionResult Profesor(ProfesorCLS profesor)
+        public IActionResult ModificarProfesor(ProfesorCLS profesor)
         {
             if (ModelState.IsValid)
             {
-
-            }
-            ViewBag.list = obj.listProfesores();
+                ViewBag.Bool = obj.UpdateProfesor(profesor);
+            }            
             return View();
         }
         [HttpPost]
