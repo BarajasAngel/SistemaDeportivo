@@ -66,7 +66,7 @@
                    @item.Usuario
                </td>
                <td>
-                   @item.Nombre
+                   @item.Nombre @item.ApellidoPat @item.ApellidoMat
                </td>
                <td>
                    @item.Edad
@@ -81,7 +81,13 @@
                    @item.Celular
                </td>
                 <td>
-                    <a href="">Modificar</a>                    
+                    <a                        
+                        class="btn btn-primary"
+                        asp-action="ModificarAlumno" 
+                        asp-controller="Administrador" 
+                        asp-route-id="@item.IdAlumno">
+                        Modificar
+                    </a>                    
                 </td>
                 <td>
                      <button class="btn btn-danger" onclick="Eliminar(@item.IdAlumno)">Eliminar</button>

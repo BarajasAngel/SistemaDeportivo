@@ -29,6 +29,36 @@ namespace SistemaDeportivo.Clases
                 return list;
             }                        
         }
+        public Alumnos getAlumno(int id)
+        {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                var getInfo = db.Alumnos.Where(x =>
+                    x.IdAlumno == id).FirstOrDefault();
+                if (getInfo != null)
+                {
+                    return getInfo; 
+                }
+                return null;
+            }
+        }
+        public int UpdateAlumno(Alumnos alumno) {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                try
+                {
+                    db.Alumnos.Update(alumno);
+
+                    db.SaveChanges();
+
+                    return 1;
+                }
+                catch (System.Exception)
+                {
+                    return 2;
+                }
+            }        
+        }
         public bool DeleteAlumno(int id)
         {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())

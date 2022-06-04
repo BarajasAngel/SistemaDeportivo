@@ -12,6 +12,16 @@
     <title>Registro</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
+<style>
+    body{
+        background-image: url("/img/registro.jpg");
+        background-size: cover;
+        backdrop-filter: blur(2px);
+    }
+    .container{
+        opacity: 93%;
+    }
+</style>
   <body>
     <main>
       <section class="vh-100">
@@ -135,7 +145,7 @@
                           <option value="" disabled selected>Selecciona una opción</option>
                           <option value="Mujer">Mujer</option>
                           <option value="Hombre">Hombre</option>
-                          <option value="Sin especificar">Sin especificar</option>
+                          <option value="Otro">Sin especificar</option>
                       </select> 
                       <span asp-validation-for="Sexo" class="text-danger"></span>
                     </div>

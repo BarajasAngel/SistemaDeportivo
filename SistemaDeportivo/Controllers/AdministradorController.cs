@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemaDeportivo.Clases;
+using SistemaDeportivo.Models;
 
 namespace SistemaDeportivo.Controllers
 {
@@ -15,14 +16,18 @@ namespace SistemaDeportivo.Controllers
             ViewBag.Mensaje = TempData["mensaje"];
             return View();
         }
+        [HttpGet]
+        public IActionResult ModificarAlumno(int id)
+        {            
+            return View(obj.getAlumno(id));
+        }
         [HttpPost]        
-        public IActionResult Alumno(AlumnoCLS alumno)
+        public IActionResult ModificarAlumno(Alumnos alumno)
         {
             if (ModelState.IsValid)
             {
-
-            }
-            ViewBag.list = obj.listAlumnos();
+                ViewBag.Bool = obj.UpdateAlumno(alumno);
+            }            
             return View();
         }
         [HttpPost]
