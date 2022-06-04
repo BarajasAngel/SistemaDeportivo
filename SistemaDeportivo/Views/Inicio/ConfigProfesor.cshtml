@@ -1,0 +1,79 @@
+﻿@using SistemaDeportivo.Clases
+@model ProfesorCLS
+@{
+    ViewData["Title"] = "ConfigProfesor";
+    ViewData["Rol"] = new General().Rol;
+}
+
+<h1>Configuracion Profesor</h1>
+
+@if (ViewBag.Bool == 1)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Genial!</strong> La informacion fue actualizada con éxito, da click <a asp-controller="Administrador" asp-action="Profesor">aquí</a> para regresar.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}else if (ViewBag.Bool == 2)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Ocurrio un error!</strong> Por favor intentelo más tarde.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>    
+}
+<form asp-action="ConfigProfesor" asp-controller="Inicio" method="post" class="row">
+    <div class="form-group ">        
+        <input type="hidden" asp-for="IdProfesor" class="form-control" />                
+        <input type="hidden" asp-for="Contraseña" value="1" class="form-control" />                
+        <input type="hidden" asp-for="ConfirmarContraseña" value="1" class="form-control" />                
+    </div>         
+    <div class="form-group col-6">        
+        <label asp-for="Usuario" class="col-form-label-lg"></label>
+        <input asp-for="Usuario" class="form-control" readonly/>
+        <span asp-validation-for="Usuario" class="text-danger"></span>
+    </div>                             
+    <div class="form-group col-6">
+        <label asp-for="Nombre" class="col-form-label-lg"></label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>                             
+    <div class="form-group col-12">
+        <label asp-for="NombreDeporte" class="col-form-label-lg"></label>
+        <input asp-for="NombreDeporte" class="form-control" readonly/>
+        <span asp-validation-for="NombreDeporte" class="text-danger"></span>
+    </div>                             
+    <div class="form-group col-4">
+        <label asp-for="Lunes" class="col-form-label-lg"></label>
+        <input asp-for="Lunes" class="form-control" />
+        <span asp-validation-for="Lunes" class="text-danger"></span>
+    </div>                             
+    <div class="form-group col-4">
+        <label asp-for="Marte" class="col-form-label-lg"></label>
+        <input asp-for="Marte" class="form-control" />
+        <span asp-validation-for="Marte" class="text-danger"></span>
+    </div>                             
+    <div class="form-group col-4">
+        <label asp-for="Miercoles" class="col-form-label-lg"></label>
+        <input asp-for="Miercoles" class="form-control" />
+        <span asp-validation-for="Miercoles" class="text-danger"></span>
+    </div>                             
+    <div class="form-group col-6">
+        <label asp-for="Jueves" class="col-form-label-lg"></label>
+        <input asp-for="Jueves" class="form-control" />
+        <span asp-validation-for="Jueves" class="text-danger"></span>
+    </div>                             
+    <div class="form-group col-6">
+        <label asp-for="Viernes" class="col-form-label-lg"></label>
+        <input asp-for="Viernes" class="form-control" />
+        <span asp-validation-for="Viernes" class="text-danger"></span>
+    </div>                             
+    <div class="col-12 d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary p-3">
+            Modificar Datos
+        </button>
+    </div>
+</form>
+

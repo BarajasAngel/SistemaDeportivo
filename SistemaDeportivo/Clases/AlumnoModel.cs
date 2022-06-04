@@ -86,6 +86,7 @@ namespace SistemaDeportivo.Clases
                 var getProfesor = db.Profesores.Where(x => x.IdUsuario == idUsuario).FirstOrDefault();
                 if (getProfesor != null)
                 {
+                    generic.IdProfesor = getProfesor.IdProfesor;
                     generic.Rol = rol;
                     return $"{getProfesor.Nombre}";
                 }
@@ -187,7 +188,7 @@ namespace SistemaDeportivo.Clases
                 }
             }
         }
-        public bool Update(AlumnoCLS alumnos)
+        public int Update(AlumnoCLS alumnos)
         {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
@@ -213,12 +214,12 @@ namespace SistemaDeportivo.Clases
                     db.Usuarios.Update(setUsuario);
 
                     db.SaveChanges();
-                    return true;
+                    return 1;
                 }
                 catch (System.Exception)
                 {
 
-                    return false;
+                    return 2;
                 }
             }
         }

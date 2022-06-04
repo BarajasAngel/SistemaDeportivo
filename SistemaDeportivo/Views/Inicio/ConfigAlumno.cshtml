@@ -6,7 +6,23 @@
 }
 
 <h1>Configuracion</h1>
-
+@if (ViewBag.Bool == 1)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Genial!</strong> La informacion fue actualizada con éxito, da click <a asp-controller="Administrador" asp-action="Alumno">aquí</a> para regresar.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}else if (ViewBag.Bool == 2)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Ocurrio un error!</strong> Por favor intentelo más tarde.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>    
+}
 <form asp-action="ConfigAlumno" asp-controller="Inicio" class="row" method="post">
     <div class="form-group col-4">
         <label asp-for="Usuario" class="col-form-label-lg"></label>

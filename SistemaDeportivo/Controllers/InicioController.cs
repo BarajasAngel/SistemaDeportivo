@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SistemaDeportivo.Clases;
 using SistemaDeportivo.Models;
 using System.Collections.Generic;
+using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -51,7 +52,8 @@ namespace SistemaDeportivo.Controllers
         [HttpGet]
         [Authorize(Roles = "Alumno, AlumnoInscrito")]        
         public IActionResult ConfigAlumno()
-        {            
+        {
+            ViewBag.Bool = 0;
             return View(obj.ReadInfo());
         }
         [HttpPost]
@@ -59,16 +61,37 @@ namespace SistemaDeportivo.Controllers
         public IActionResult ConfigAlumno(AlumnoCLS alumno) {
             if (ModelState.IsValid)
             {
-                return View(obj.ReadInfo());
+                ViewBag.Bool = obj.Update(alumno);
             }
             return View(obj.ReadInfo());
+        }
+        [HttpGet]
+        [Authorize(Roles = "AlumnoInscrito")]
+        public FileResult Credencial() {
+            FileStream documento = new CredencialCLS().credencial();
+            return File(documento, "application/pdf");
         }
         [HttpGet]
         [Authorize(Roles = "Profesor")]
         public IActionResult Profesor() {
             ViewBag.Lista = obj2.AlumnosList();
             return View();
-        }        
-
+        }
+        [HttpGet]
+        [Authorize(Roles = "Profesor")]
+        public IActionResult ConfigProfesor() {
+            ViewBag.Bool = 0;
+            return View(obj2.getProfesor());
+        }
+        [HttpPost]
+        [Authorize(Roles = "Profesor")]
+        public IActionResult ConfigProfesor(ProfesorCLS profesor)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Bool = obj2.UpdateProfesor(profesor);
+            }
+            return View();
+        }
     }
 }
