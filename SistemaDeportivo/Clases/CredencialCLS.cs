@@ -69,7 +69,7 @@ namespace SistemaDeportivo.Clases
                 PdfPCell fila1 = new PdfPCell(new Phrase("Alumno: " + getAlumno.ApellidoPat + " " + getAlumno.ApellidoMat + " " + getAlumno.Nombre, letra2));
                 fila1.BorderWidth = 0;
                 tabl1.AddCell(fila1);
-                PdfPCell fila2 = new PdfPCell(new Phrase("Boleta:" + generic.Usuario, letra2));
+                PdfPCell fila2 = new PdfPCell(new Phrase("Boleta:" + usuario, letra2));
                 fila2.BorderWidth = 0;
                 tabl1.AddCell(fila2);
                 pdfDoc.Add(tabl1);

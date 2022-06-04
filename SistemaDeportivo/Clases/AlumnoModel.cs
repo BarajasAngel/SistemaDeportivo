@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using SistemaDeportivo.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace SistemaDeportivo.Clases
                 db.Add(setUser);
                 db.SaveChanges();
 
-                var getIdUsuario = db.Usuarios.Where(x => x.Usuario == alumno.Usuario).First().IdUsuario;
+                var getIdUsuario = db.Usuarios.ToList().Last();
 
                 Alumnos setAlumno = new Alumnos()
                 {
@@ -38,7 +39,7 @@ namespace SistemaDeportivo.Clases
                     Correo = alumno.Correo,
                     Celular = alumno.Celular,
                     IdDeporte = null,
-                    IdUsuario = getIdUsuario
+                    IdUsuario = getIdUsuario.IdUsuario
                 };
 
                 try
@@ -145,6 +146,7 @@ namespace SistemaDeportivo.Clases
 
                 AlumnoCLS getAlumno = new AlumnoCLS()
                 {
+                    IdAlumno = getInfo.IdAlumno,                    
                     Usuario = getUser.Usuario,
                     Nombre = getInfo.Nombre,
                     ApellidoPat = getInfo.ApellidoPat,
@@ -191,34 +193,64 @@ namespace SistemaDeportivo.Clases
         public int Update(AlumnoCLS alumnos)
         {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
-            {
-                Alumnos setAlumno = new Alumnos()
-                {
-                    Nombre = alumnos.Nombre,
-                    ApellidoPat = alumnos.ApellidoPat,
-                    ApellidoMat = alumnos.ApellidoMat,
-                    Edad = alumnos.Edad,
-                    Sexo = alumnos.Sexo,
-                    Correo = alumnos.Correo,
-                    Celular = alumnos.Celular
-                };
+            {                
+                var getAlumno = db.Alumnos.Where(x => x.IdAlumno == alumnos.IdAlumno).First();
+                var getUsuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno.IdUsuario).First();
 
-                Usuarios setUsuario = new Usuarios()
-                {
-                    Contraseña = alumnos.Contraseña
-                };
+                Alumnos setAlumno = new Alumnos();
+
+                setAlumno.IdAlumno = getAlumno.IdAlumno;
+                setAlumno.IdUsuario = getUsuario.IdUsuario;
+                setAlumno.Nombre = alumnos.Nombre;
+                setAlumno.ApellidoPat = alumnos.ApellidoPat;
+                setAlumno.ApellidoMat = alumnos.ApellidoMat;
+                setAlumno.Edad = alumnos.Edad;
+                setAlumno.Sexo = alumnos.Sexo;
+                setAlumno.Correo = alumnos.Correo;
+                setAlumno.Celular = alumnos.Celular;
+                setAlumno.IdDeporte = getAlumno.IdDeporte;               
+
+                
+
+                //Alumnos setAlumno = new Alumnos()
+                //{
+                //    IdAlumno = getAlumno.IdAlumno,
+                //    IdUsuario = getUsuario.IdUsuario,
+                //    Nombre = alumnos.Nombre,
+                //    ApellidoPat = alumnos.ApellidoPat,
+                //    ApellidoMat = alumnos.ApellidoMat,
+                //    Edad = alumnos.Edad,
+                //    Sexo = alumnos.Sexo,
+                //    Correo = alumnos.Correo,
+                //    Celular = alumnos.Celular,
+                //    IdDeporte = getAlumno.IdDeporte
+                //};                                
+
+                Usuarios setUsuarios = new Usuarios();
+                setUsuarios.Usuario = getUsuario.Usuario;
+                setUsuarios.Contraseña = alumnos.Contraseña;
+                setUsuarios.IdUsuario = getUsuario.IdUsuario;
+                setUsuarios.IdRol = getUsuario.IdRol;
+
+
+                //Usuarios setUsuario = new Usuarios()
+                //{
+                //    Usuario = getUsuario.Usuario,
+                //    Contraseña = alumnos.Contraseña,
+                //    IdUsuario = getUsuario.IdUsuario,
+                //    IdRol = getUsuario.IdRol,                    
+                //};
 
                 try
-                {                    
-                    db.Alumnos.Update(setAlumno);
-                    db.Usuarios.Update(setUsuario);
-
+                {                                        
+                    db.Usuarios.Update(setUsuarios);
+                    db.Alumnos.Update(setAlumno);                    
                     db.SaveChanges();
                     return 1;
                 }
-                catch (System.Exception)
+                catch (System.Exception EX)
                 {
-
+                    string variable = EX.Message;
                     return 2;
                 }
             }

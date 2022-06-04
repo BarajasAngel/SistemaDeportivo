@@ -40,8 +40,8 @@ namespace SistemaDeportivo.Clases
 		[StringLength(30, ErrorMessage = "El limite de caracteres es 30")]
 		public string ApellidoMat { get; set; }
 
-		[Required(ErrorMessage = "Coloca una edad entre 15 y 22 años")]
-		[Range(15, 22, ErrorMessage = "Coloca una edad valida")]
+		[Required(ErrorMessage = "Coloca una edad entre 15 y 60 años")]
+		[Range(15, 60, ErrorMessage = "Coloca una edad valida")]
 		public decimal Edad { get; set; }
 
 		[Display(Name = "Género")]

@@ -14,7 +14,7 @@ namespace SistemaDeportivo.Models
         {
             Credencial = new HashSet<Credencial>();
         }
-        [Key]
+        [Key]        
         [Display(Name = "#")]
         public int IdAlumno { get; set; }
         [Required(ErrorMessage = "Coloque el nombre del alumno")]
