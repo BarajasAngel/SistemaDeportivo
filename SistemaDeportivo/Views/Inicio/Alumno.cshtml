@@ -86,11 +86,10 @@
               <select name="Deporte" id="select"
                   class="form-control form-control-lg form-select">   
                   <option value="" disabled selected>Selecciona una opción</option>
-                  <option value="1">Futbol Soccer</option>
-                  <option value="2">Basquetbol</option>
-                  <option value="3">Futbol Americano</option>
-                  <option value="4">Taekwondo</option>
-                  <option value="5">Karate</option>
+                  @for (int i = 0; i < ViewBag.Deportes.Count; i++)
+                  {
+                        <option value="@ViewBag.Deportes[i][0]">@ViewBag.Deportes[i][1]</option>
+                  }
               </select>
               <span class="text-danger" id="Error"></span>
             </div>

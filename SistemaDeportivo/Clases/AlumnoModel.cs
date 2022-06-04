@@ -204,6 +204,20 @@ namespace SistemaDeportivo.Clases
                 }
             }
         }
+        public List<string[]> Deportes() {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                List<string[]> list = new List<string[]>();
+                var getProfes = db.Profesores.ToList();
+                for (int i = 0; i < getProfes.Count; i++)
+                {
+                    var getDeporte = db.Deporte.Where(x =>
+                        x.IdDeporte == getProfes[i].IdDeporte).First();
+                    list.Add(new string[] { getDeporte.IdDeporte.ToString() ,getDeporte.NombreDeporte });
+                }
+                return list;
+            }               
+        }
 
     }
 }

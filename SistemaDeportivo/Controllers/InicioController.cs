@@ -20,6 +20,7 @@ namespace SistemaDeportivo.Controllers
         public IActionResult Alumno() {
             ViewBag.List = obj.Read();
             ViewBag.Bool = false;
+            ViewBag.Deportes = obj.Deportes();
             return View();
         }
         [HttpPost]
