@@ -187,13 +187,31 @@ namespace SistemaDeportivo.Clases
                 }
             }
         }
-        public bool Update(Alumnos alumnos)
+        public bool Update(AlumnoCLS alumnos)
         {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
-                try
+                Alumnos setAlumno = new Alumnos()
                 {
-                    db.Update(alumnos);
+                    Nombre = alumnos.Nombre,
+                    ApellidoPat = alumnos.ApellidoPat,
+                    ApellidoMat = alumnos.ApellidoMat,
+                    Edad = alumnos.Edad,
+                    Sexo = alumnos.Sexo,
+                    Correo = alumnos.Correo,
+                    Celular = alumnos.Celular
+                };
+
+                Usuarios setUsuario = new Usuarios()
+                {
+                    Contraseña = alumnos.Contraseña
+                };
+
+                try
+                {                    
+                    db.Alumnos.Update(setAlumno);
+                    db.Usuarios.Update(setUsuario);
+
                     db.SaveChanges();
                     return true;
                 }
