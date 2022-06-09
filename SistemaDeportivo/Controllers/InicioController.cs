@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SistemaDeportivo.Clases;
 using SistemaDeportivo.Models;
 using System.Collections.Generic;
@@ -13,6 +15,15 @@ namespace SistemaDeportivo.Controllers
 {
     public class InicioController : Controller
     {
+        private readonly ILogger<HomeController> _logger;
+        private readonly IWebHostEnvironment hostEnvironment;
+
+        public InicioController(ILogger<HomeController> logger, IWebHostEnvironment hostEnvironment)
+        {
+            _logger = logger;
+            this.hostEnvironment = hostEnvironment;
+        }
+
         AlumnoModel obj = new AlumnoModel();
         ProfesorModel obj2 = new ProfesorModel();
 
@@ -68,7 +79,9 @@ namespace SistemaDeportivo.Controllers
         [HttpGet]
         [Authorize(Roles = "AlumnoInscrito")]
         public FileResult Credencial() {
-            FileStream documento = new CredencialCLS().credencial();
+
+            string wwwRootPath = hostEnvironment.WebRootPath;
+            FileStream documento = new CredencialCLS(wwwRootPath).credencial();
             return File(documento, "application/pdf");
         }
         [HttpGet]

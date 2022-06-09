@@ -3,17 +3,27 @@ using iTextSharp.text.pdf;
 using SistemaDeportivo.Models;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SistemaDeportivo.Clases
 {
     public class CredencialCLS
     {
         General generic = new General();
+        
+
+        private string path;
+        public CredencialCLS(string wwwroot)
+        {
+            path = wwwroot;
+        }
+
         public FileStream credencial()
         {
             string usuario;
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
+
                 var getAlumno = db.Alumnos.Where(x =>
                     x.IdAlumno == generic.IdAlumno).First();
                 var getDeporte = db.Deporte.Where(x =>
@@ -22,14 +32,17 @@ namespace SistemaDeportivo.Clases
                 var getUSuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno.IdUsuario).First();
                 usuario = getUSuario.Usuario;
 
-                bool comprobar = File.Exists(usuario + ".pdf");
+                path = Path.Combine(path,"doc", getUSuario.Usuario + ".pdf");
+
+                bool comprobar = File.Exists(path);
+
 
                 if (comprobar)
                 {
-                    File.Delete(usuario + ".pdf");
+                    File.Delete(path);
                 }
                 //Creamos un nuevo documento y lo definimos como PDF
-                FileStream stream = new FileStream(getUSuario.Usuario + ".pdf", FileMode.Create);
+                FileStream stream = new FileStream(path, FileMode.Create);
                 Document pdfDoc = new Document(PageSize.A5.Rotate(), 25, 25, 30, 30);
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
 
@@ -92,9 +105,22 @@ namespace SistemaDeportivo.Clases
                 writer.Close();
                 stream.Close();
             }
-            FileStream abrir = new FileStream(usuario + ".pdf", FileMode.Open);
 
+            Enviar(path);
+            
+            FileStream abrir = new FileStream(path, FileMode.Open);
+            
             return abrir;
+        }
+
+        public void Enviar(string ruta) {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                var getAlumno = db.Alumnos.Where(x =>
+                    x.IdAlumno == generic.IdAlumno).First();
+                var getUsuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno.IdUsuario).First();                
+                string resp = new Correo(getAlumno.Correo, ruta).smtpCorreo();
+            }                    
         }
     }
 }

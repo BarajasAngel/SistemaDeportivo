@@ -1,4 +1,5 @@
-﻿using SistemaDeportivo.Models;
+﻿using Microsoft.AspNetCore.Hosting;
+using SistemaDeportivo.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,6 +7,8 @@ namespace SistemaDeportivo.Clases
 {
     public class ProfesorModel
     {
+        
+
         General generic = new General();
         public List<Alumnos> AlumnosList()
         {
@@ -57,7 +60,8 @@ namespace SistemaDeportivo.Clases
         public int UpdateProfesor(ProfesorCLS profesor)
         {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
-            {
+            { 
+
 
                 var getDeporte = db.Deporte.Where(x =>
                     x.NombreDeporte == profesor.NombreDeporte).First();
