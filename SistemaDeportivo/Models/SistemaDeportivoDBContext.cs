@@ -26,12 +26,14 @@ namespace SistemaDeportivo.Models
         public virtual DbSet<Horario> Horario { get; set; }
         public virtual DbSet<Profesores> Profesores { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
+        public virtual DbSet<Solicitud> Solicitud { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Data Source=Asura;Initial Catalog=SistemaDeportivoDB;Integrated Security=True");
             }
         }
@@ -41,7 +43,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Administrator>(entity =>
             {
                 entity.HasKey(e => e.IdAdministrator)
-                    .HasName("PK__Administ__336D26FEE4A5A89F");
+                    .HasName("PK__Administ__336D26FE9F814263");
 
                 entity.Property(e => e.IdAdministrator).HasColumnName("Id_Administrator");
 
@@ -61,7 +63,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Alumnos>(entity =>
             {
                 entity.HasKey(e => e.IdAlumno)
-                    .HasName("PK__Alumnos__B996CB1263A1D6C5");
+                    .HasName("PK__Alumnos__B996CB12FD249E08");
 
                 entity.Property(e => e.IdAlumno).HasColumnName("Id_Alumno");
 
@@ -98,7 +100,6 @@ namespace SistemaDeportivo.Models
                 entity.HasOne(d => d.IdDeporteNavigation)
                     .WithMany(p => p.Alumnos)
                     .HasForeignKey(d => d.IdDeporte)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Deporte");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
@@ -111,7 +112,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Credencial>(entity =>
             {
                 entity.HasKey(e => e.IdCredencial)
-                    .HasName("PK__Credenci__0E7E70882BBA324D");
+                    .HasName("PK__Credenci__0E7E7088414F03A2");
 
                 entity.Property(e => e.IdCredencial).HasColumnName("Id_Credencial");
 
@@ -135,7 +136,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Deporte>(entity =>
             {
                 entity.HasKey(e => e.IdDeporte)
-                    .HasName("PK__Deporte__DE0349E25C65B29F");
+                    .HasName("PK__Deporte__DE0349E276A25377");
 
                 entity.Property(e => e.IdDeporte).HasColumnName("Id_Deporte");
 
@@ -155,7 +156,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Horario>(entity =>
             {
                 entity.HasKey(e => e.IdHorario)
-                    .HasName("PK__Horario__AD7A4DD327F19861");
+                    .HasName("PK__Horario__AD7A4DD3786439F7");
 
                 entity.Property(e => e.IdHorario).HasColumnName("Id_Horario");
 
@@ -173,7 +174,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Profesores>(entity =>
             {
                 entity.HasKey(e => e.IdProfesor)
-                    .HasName("PK__Profesor__45D4152A4848EA93");
+                    .HasName("PK__Profesor__45D4152AB7C0F77D");
 
                 entity.Property(e => e.IdProfesor).HasColumnName("Id_Profesor");
 
@@ -201,7 +202,7 @@ namespace SistemaDeportivo.Models
             modelBuilder.Entity<Rol>(entity =>
             {
                 entity.HasKey(e => e.IdRol)
-                    .HasName("PK__Rol__55932E861C39EA8A");
+                    .HasName("PK__Rol__55932E86AF2CAE39");
 
                 entity.Property(e => e.IdRol).HasColumnName("Id_Rol");
 
@@ -210,10 +211,34 @@ namespace SistemaDeportivo.Models
                     .HasMaxLength(20);
             });
 
+            modelBuilder.Entity<Solicitud>(entity =>
+            {
+                entity.HasKey(e => e.IdSolicitud)
+                    .HasName("PK__Solicitu__8791A50A3F86A7F9");
+
+                entity.Property(e => e.IdSolicitud).HasColumnName("Id_Solicitud");
+
+                entity.Property(e => e.IdProfesor).HasColumnName("Id_Profesor");
+
+                entity.Property(e => e.IdUsuario).HasColumnName("Id_Usuario");
+
+                entity.HasOne(d => d.IdProfesorNavigation)
+                    .WithMany(p => p.Solicitud)
+                    .HasForeignKey(d => d.IdProfesor)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_Solicitud_Profesor");
+
+                entity.HasOne(d => d.IdUsuarioNavigation)
+                    .WithMany(p => p.Solicitud)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_Solicitud_Usuario");
+            });
+
             modelBuilder.Entity<Usuarios>(entity =>
             {
                 entity.HasKey(e => e.IdUsuario)
-                    .HasName("PK__Usuarios__63C76BE256F64A74");
+                    .HasName("PK__Usuarios__63C76BE2ED0587F5");
 
                 entity.Property(e => e.IdUsuario).HasColumnName("Id_Usuario");
 

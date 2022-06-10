@@ -130,6 +130,7 @@ namespace SistemaDeportivo.Clases
                         Miercoles = lisHorario.Miercoles,
                         Jueves = lisHorario.Jueves,
                         Viernes = lisHorario.Viernes,
+                        Cupo = listDeporte.Cupo
                     });
                 }
                 return getProfes;
@@ -169,8 +170,11 @@ namespace SistemaDeportivo.Clases
                 var getProfe = db.Profesores.Where(x => x.IdDeporte == getAlumno.IdDeporte).First();
                 var getUsuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno.IdUsuario).First();
                 getUsuario.IdRol = 4;
+                var getDeporte = db.Deporte.Where(x => x.IdDeporte == int.Parse(deporte)).First();
+                getDeporte.Cupo--;
                 try
                 {
+                    db.Deporte.Update(getDeporte);
                     db.Update(getAlumno);
                     db.Update(getUsuario);
 
@@ -264,7 +268,10 @@ namespace SistemaDeportivo.Clases
                 {
                     var getDeporte = db.Deporte.Where(x =>
                         x.IdDeporte == getProfes[i].IdDeporte).First();
-                    list.Add(new string[] { getDeporte.IdDeporte.ToString() ,getDeporte.NombreDeporte });
+                    if (getDeporte.Cupo>0)
+                    {
+                        list.Add(new string[] { getDeporte.IdDeporte.ToString(), getDeporte.NombreDeporte });
+                    }
                 }
                 return list;
             }               

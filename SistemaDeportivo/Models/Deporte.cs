@@ -20,6 +20,7 @@ namespace SistemaDeportivo.Models
         [Display(Name = "Deporte")]
         public string NombreDeporte { get; set; }        
         public int IdHorario { get; set; }
+        public int Cupo { get; set; }
 
         public virtual Horario IdHorarioNavigation { get; set; }
         public virtual ICollection<Alumnos> Alumnos { get; set; }

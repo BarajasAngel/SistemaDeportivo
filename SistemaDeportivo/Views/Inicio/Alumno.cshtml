@@ -37,6 +37,9 @@
                   m.IdDeporteNavigation.IdHorarioNavigation.Jueves)</th>
               <th scope="col">@Html.DisplayNameFor(m => 
                   m.IdDeporteNavigation.IdHorarioNavigation.Viernes)</th>
+              <th scope="col">@Html.DisplayNameFor(m => 
+                  m.IdDeporteNavigation.Cupo)</th>
+
             </tr>
   </thead>
   <tbody>
@@ -50,8 +53,20 @@
                     <td>@item.Marte</td>      
                     <td>@item.Miercoles</td>      
                     <td>@item.Jueves</td>      
-                    <td>@item.Viernes</td>      
-                </tr>
+                    <td>@item.Viernes</td>
+                    @if (@item.Cupo < 1)
+                {
+                    <td>
+                        <div class="tex-danger">Sin cupo</div>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @item.Cupo
+                    </td>
+                }
+            </tr>
             }
   </tbody>
 </table>
