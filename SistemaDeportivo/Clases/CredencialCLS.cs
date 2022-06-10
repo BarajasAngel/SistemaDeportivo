@@ -3,6 +3,7 @@ using iTextSharp.text.pdf;
 using SistemaDeportivo.Models;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SistemaDeportivo.Clases
@@ -12,10 +13,11 @@ namespace SistemaDeportivo.Clases
         General generic = new General();
         
 
-        private string path;
+        private string path, path2;
         public CredencialCLS(string wwwroot)
         {
             path = wwwroot;
+            path2 = wwwroot;
         }
 
         public FileStream credencial()
@@ -33,6 +35,7 @@ namespace SistemaDeportivo.Clases
                 usuario = getUSuario.Usuario;
 
                 path = Path.Combine(path,"doc", getUSuario.Usuario + ".pdf");
+                path2 = Path.Combine(path2, "email", getUSuario.Usuario + ".pdf");
 
                 bool comprobar = File.Exists(path);
 
@@ -106,8 +109,13 @@ namespace SistemaDeportivo.Clases
                 stream.Close();
             }
 
-            Enviar(path);
-            
+            File.Copy(path, path2, true);
+
+            Task thread1 = Task.Factory.StartNew(() => Enviar(path2));            
+            Task.WaitAll(thread1);
+
+            Thread.Sleep(1000);
+
             FileStream abrir = new FileStream(path, FileMode.Open);
             
             return abrir;

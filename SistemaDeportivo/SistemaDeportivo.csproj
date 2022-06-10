@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\doc\" />
+    <Folder Include="wwwroot\email\" />
   </ItemGroup>
 
 </Project>
