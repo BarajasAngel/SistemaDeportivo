@@ -26,6 +26,7 @@ namespace SistemaDeportivo.Controllers
 
         AlumnoModel obj = new AlumnoModel();
         ProfesorModel obj2 = new ProfesorModel();
+        AdministradorModel obj3 = new AdministradorModel();
 
         [HttpGet]
         [Authorize(Roles= "Alumno,AlumnoInscrito")]
@@ -89,6 +90,22 @@ namespace SistemaDeportivo.Controllers
         public IActionResult Profesor() {
             ViewBag.Lista = obj2.AlumnosList();
             return View();
+        }
+        [Authorize(Roles = "Profesor")]
+        public RedirectToActionResult EliminarAlumno(int id)
+        {
+            var booleanito = obj3.DeleteAlumno(id);
+            if (booleanito)
+            {
+                TempData["mensaje"] = "1";
+                ViewBag.Bool = "El Alumno fue eliminado con exito";
+            }
+            else
+            {
+                TempData["mensaje"] = "2";
+                ViewBag.Bool = "No pudimos eliminar a este alumno";
+            }
+            return RedirectToAction("Alumno");
         }
         [HttpGet]
         [Authorize(Roles = "Profesor")]

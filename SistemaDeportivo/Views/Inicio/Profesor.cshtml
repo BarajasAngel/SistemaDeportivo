@@ -29,7 +29,10 @@
         </th>
         <th scope="col">
             @Html.DisplayNameFor(m => m.Celular)
-        </th>            
+        </th>
+        <th>
+            Eliminar
+        </th>
     </tr>
 </thead>
 <tbody>
@@ -42,8 +45,24 @@
         <td>@item.Sexo</td>
         <td>@item.Correo</td>
         <td>@item.Celular</td>
+                    <td>
+                        <button class="btn btn-danger" onclick="Eliminar(@item.IdAlumno)">Eliminar</button>
+                    </td>
     </tr>
 }
 </tbody>
 </table>
 </div>
+
+<form asp-action="EliminarAlumno" asp-controller="Inicio" method="post" id="frmEliminar">
+    <input type="hidden" id="IdEliminar" />
+</form>
+
+<script>
+function Eliminar(id) 
+{ 
+    document.getElementById("IdEliminar").value = id;
+    frmEliminar.submit();
+}
+
+</script>
