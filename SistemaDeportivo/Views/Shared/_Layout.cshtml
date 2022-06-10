@@ -64,6 +64,12 @@
                         <a class="nav-link" asp-action="ConfigProfesor">Configuracion</a>
                     </li>         
                 }
+                @if (ViewData["Rol"].ToString() == "AlumnoInscrito")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Alumno">Deportes</a>
+                    </li>         
+                }
               <li class="nav-item">
                 <a class="nav-link" asp-action="CerrarSesion" asp-controller="Home">Cerrar Sesion</a>
               </li>         

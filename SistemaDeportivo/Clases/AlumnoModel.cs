@@ -166,12 +166,20 @@ namespace SistemaDeportivo.Clases
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
                 var getAlumno = db.Alumnos.Where(x => x.IdAlumno == generic.IdAlumno).First();
-                getAlumno.IdDeporte = int.Parse(deporte);
+                getAlumno.IdDeporte = int.Parse(deporte);                
+
                 var getProfe = db.Profesores.Where(x => x.IdDeporte == getAlumno.IdDeporte).First();
                 var getUsuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno.IdUsuario).First();
-                getUsuario.IdRol = 4;
-                var getDeporte = db.Deporte.Where(x => x.IdDeporte == int.Parse(deporte)).First();
+                getUsuario.IdRol = 4;                
+                var getDeporte = db.Deporte.Where(x => x.IdDeporte == int.Parse(deporte)).First();                
                 getDeporte.Cupo--;
+                var getCredencial = db.Credencial.Where(x => x.IdProfesor == getProfe.IdProfesor).FirstOrDefault();
+
+                if (getCredencial != null)
+                {
+                    return false;
+                }
+
                 try
                 {
                     db.Deporte.Update(getDeporte);

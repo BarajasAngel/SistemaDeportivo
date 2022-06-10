@@ -28,7 +28,7 @@ namespace SistemaDeportivo.Controllers
         ProfesorModel obj2 = new ProfesorModel();
 
         [HttpGet]
-        [Authorize(Roles= "Alumno")]
+        [Authorize(Roles= "Alumno,AlumnoInscrito")]
         public IActionResult Alumno() {
             ViewBag.List = obj.Read();
             ViewBag.Bool = false;
@@ -36,7 +36,7 @@ namespace SistemaDeportivo.Controllers
             return View();
         }
         [HttpPost]
-        [Authorize(Roles = "Alumno")]
+        [Authorize(Roles = "Alumno,AlumnoInscrito")]
         public async Task<IActionResult> Alumno(string Deporte)
         {
             if (obj.Update(Deporte))
