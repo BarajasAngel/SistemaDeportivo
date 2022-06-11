@@ -129,6 +129,7 @@ namespace SistemaDeportivo.Clases
                 var setAlumno = db.Alumnos.Where(x => x.IdAlumno == id).First();
                 var setUsuario = db.Usuarios.Where(x => x.IdUsuario == setAlumno.IdUsuario).First();
                 var setCupo = db.Deporte.Where(x => x.IdDeporte == getProfe.IdDeporte).First();
+                var setSolicitud = db.Solicitud.Where(x => x.IdAlumno == id).ToList();
                 setCupo.Cupo++;
                 try
                 {
@@ -136,6 +137,16 @@ namespace SistemaDeportivo.Clases
                     db.DeporteInscrito.Remove(setInscrip.First());
                     db.Deporte.Update(setCupo);
                     db.SaveChanges();
+
+                    if (setSolicitud.Count != 0)
+                    {
+                        for (int i = 0; i < setSolicitud.Count; i++)
+                        {
+                            db.Solicitud.Remove(setSolicitud[i]);                            
+                        }
+                        db.SaveChanges();
+                    }
+
                     if (setInscrip.ToList().Count() == 0)
                     {
                         setUsuario.IdRol = 3;

@@ -66,8 +66,13 @@ namespace SistemaDeportivo.Clases
         {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
+                var setSolicitud = db.Solicitud.Where(x => x.IdAlumno == id).ToList();
+
+                var getInscrip = db.DeporteInscrito.Where(x => 
+                    x.IdAlumno == id).ToList();
+
                 var getCredencial = db.Credencial.Where(x =>
-                    x.IdAlumno == id).FirstOrDefault();
+                    x.IdAlumno == id).ToList();
 
                 var getAlumno = db.Alumnos.Where(x =>
                     x.IdAlumno == id).First();
@@ -77,9 +82,21 @@ namespace SistemaDeportivo.Clases
 
                 try
                 {
-                    if (getCredencial != null)
+
+                    if (getCredencial.Count != 0)
                     {
-                        db.Credencial.Remove(getCredencial);
+                        for (int i = 0; i < getCredencial.Count; i++)
+                        {
+                            db.Credencial.Remove(getCredencial[i]);
+                            db.DeporteInscrito.Remove(getInscrip[i]);
+                        }
+                    }
+                    if (setSolicitud.Count != 0)
+                    {
+                        for (int i = 0; i < setSolicitud.Count; i++)
+                        {
+                            db.Solicitud.Remove(setSolicitud[i]);
+                        }
                     }
                     db.Alumnos.Remove(getAlumno);
                     db.Usuarios.Remove(getUsuario);

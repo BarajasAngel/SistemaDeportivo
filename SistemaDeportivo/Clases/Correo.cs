@@ -34,8 +34,8 @@ namespace SistemaDeportivo.Clases
         {
             this.path = path;
             this.destinatario = destinatario;
-            this.asunto = "Haz hecho match";
-            this.mensaje = "Alguien te hizo match, ve a tus notificaciones dentro de la página y revisa quien fue🐾";
+            this.asunto = "Credemcial Deportista";
+            this.mensaje = "Aquí tienes la credencial deportista";
         }
 
         private void Mensaje()
