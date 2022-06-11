@@ -13,11 +13,12 @@ namespace SistemaDeportivo.Clases
         General generic = new General();
         
 
-        private string path, path2;
+        private string path, path2,path3;
         public CredencialCLS(string wwwroot)
         {
             path = wwwroot;
             path2 = wwwroot;
+            path3 = wwwroot;
         }
 
         public FileStream credencial()
@@ -25,18 +26,21 @@ namespace SistemaDeportivo.Clases
             string usuario;
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
-
+                //Esto va a fallar solucionar despues
                 var getAlumno = db.Alumnos.Where(x =>
                     x.IdAlumno == generic.IdAlumno).First();
-                var getDeporte = db.Deporte.Where(x =>
-                    x.IdDeporte == getAlumno.IdDeporte).First();
-                var getProfesor = db.Profesores.Where(x => x.IdDeporte == getDeporte.IdDeporte).First();
-                var getUSuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno.IdUsuario).First();
+                var getInscrito = db.DeporteInscrito.Where(x =>
+                    x.IdDeporteInscrito == getAlumno.IdDeporteInscrito).First();
+                var getDeporte = db.Deporte.Where(x => x.IdDeporte == getInscrito.IdDeporte).First();
+                var getProfesor = db.Profesores.Where(x => 
+                    x.IdDeporte == getInscrito.IdDeporte).First();
+                var getUSuario = db.Usuarios.Where(x => 
+                    x.IdUsuario == getAlumno.IdUsuario).First();                
                 usuario = getUSuario.Usuario;
 
                 path = Path.Combine(path,"doc", getUSuario.Usuario + ".pdf");
                 path2 = Path.Combine(path2, "email", getUSuario.Usuario + ".pdf");
-
+                path3 = Path.Combine(path3, "img", "A5.jpg");
                 bool comprobar = File.Exists(path);
 
 
@@ -55,7 +59,7 @@ namespace SistemaDeportivo.Clases
                 pdfDoc.Open();
 
                 PdfContentByte cb = writer.DirectContentUnder;
-                Image imagen = Image.GetInstance("http://drive.google.com/uc?export=view&id=1OQOU-mB-0Knh-cU1MY7SKwvqvhBjwyA8");
+                Image imagen = Image.GetInstance(path3);
                 imagen.SetAbsolutePosition(0f, 0f);
                 cb.AddImage(imagen);
 

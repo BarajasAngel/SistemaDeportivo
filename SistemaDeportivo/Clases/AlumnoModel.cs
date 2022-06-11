@@ -38,7 +38,7 @@ namespace SistemaDeportivo.Clases
                     Sexo = alumno.Sexo,
                     Correo = alumno.Correo,
                     Celular = alumno.Celular,
-                    IdDeporte = null,
+                    IdDeporteInscrito = null,
                     IdUsuario = getIdUsuario.IdUsuario
                 };
 
@@ -95,7 +95,7 @@ namespace SistemaDeportivo.Clases
                 if (getAlumno != null)
                 {
                     var getDeporte = db.Deporte.Where(x =>
-                        x.IdDeporte == getAlumno.IdDeporte).FirstOrDefault();
+                        x.IdDeporte == getAlumno.IdDeporteInscrito).FirstOrDefault();
                     if (getDeporte != null)
                     {
                         generic.Deporte = getDeporte.NombreDeporte;
@@ -166,12 +166,23 @@ namespace SistemaDeportivo.Clases
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
                 var getAlumno = db.Alumnos.Where(x => x.IdAlumno == generic.IdAlumno).First();
-                getAlumno.IdDeporte = int.Parse(deporte);                
+                var getDeporte = db.Deporte.Where(x => x.IdDeporte == int.Parse(deporte)).First();
+                DeporteInscrito setInscrip = new DeporteInscrito() { 
+                    IdUsuario = getAlumno.IdUsuario,
+                    IdDeporte = getDeporte.IdDeporte
+                };
 
-                var getProfe = db.Profesores.Where(x => x.IdDeporte == getAlumno.IdDeporte).First();
+                
+
+                db.DeporteInscrito.Add(setInscrip);
+                db.SaveChanges();
+
+                getAlumno.IdDeporteInscrito = setInscrip.IdDeporteInscrito; 
+                     
+                var getProfe = db.Profesores.Where(x => x.IdDeporte == setInscrip.IdDeporte).First();
                 var getUsuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno.IdUsuario).First();
                 getUsuario.IdRol = 4;                
-                var getDeporte = db.Deporte.Where(x => x.IdDeporte == int.Parse(deporte)).First();                
+                                
                 getDeporte.Cupo--;
                 var getCredencial = db.Credencial.Where(x => x.IdProfesor == getProfe.IdProfesor).FirstOrDefault();
 
@@ -220,7 +231,7 @@ namespace SistemaDeportivo.Clases
                 setAlumno.Sexo = alumnos.Sexo;
                 setAlumno.Correo = alumnos.Correo;
                 setAlumno.Celular = alumnos.Celular;
-                setAlumno.IdDeporte = getAlumno.IdDeporte;               
+                setAlumno.IdDeporteInscrito = getAlumno.IdDeporteInscrito;               
 
                 
 
@@ -292,7 +303,7 @@ namespace SistemaDeportivo.Clases
                 
 
                 for (int i = 0; i < getCredencial.Count; i++)
-                {
+                {                    
                     var getProfesor = db.Profesores.Where(x => x.IdProfesor == getCredencial[i].IdProfesor).First();
                     var getDeporte = db.Deporte.Where(x => x.IdDeporte == getProfesor.IdDeporte).First();
                     lista.Add(new DeporteCLS { IdDeporte = getProfesor.IdProfesor, NombreProfesor = getProfesor.Nombre, NombreDeporte = getDeporte.NombreDeporte }); 
@@ -306,7 +317,7 @@ namespace SistemaDeportivo.Clases
                 var getAlumno = db.Alumnos.Where(x => x.IdAlumno == generic.IdAlumno).First();                
                 Solicitud setSolicitud = new Solicitud() {
                     IdProfesor = id,
-                    IdUsuario = getAlumno.IdUsuario                    
+                    IdAlumno = getAlumno.IdUsuario                    
                 };
 
                 try

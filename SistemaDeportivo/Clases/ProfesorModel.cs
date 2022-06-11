@@ -22,7 +22,7 @@ namespace SistemaDeportivo.Clases
                 x.IdDeporte == getProfesor.IdDeporte).First();
 
                 var getAlumnos = db.Alumnos.Where(x =>
-                x.IdDeporte == getDeporte.IdDeporte).ToList();
+                x.IdDeporteInscrito == getDeporte.IdDeporte).ToList();
 
                 return getAlumnos;
             }
@@ -109,7 +109,7 @@ namespace SistemaDeportivo.Clases
                 if (getNotificacion != null)
                 {
                     var getAlumnos = db.Alumnos.Where(x =>
-                            x.IdUsuario == getNotificacion.IdUsuario).ToList();
+                            x.IdAlumno == getNotificacion.IdAlumno).ToList();
 
                     return getAlumnos; 
                 }

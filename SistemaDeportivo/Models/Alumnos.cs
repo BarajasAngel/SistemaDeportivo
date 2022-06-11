@@ -13,9 +13,9 @@ namespace SistemaDeportivo.Models
         public Alumnos()
         {
             Credencial = new HashSet<Credencial>();
+            DeporteInscrito = new HashSet<DeporteInscrito>();
             Solicitud = new HashSet<Solicitud>();
         }
-
         [Key]
         [Display(Name = "#")]
         public int IdAlumno { get; set; }
@@ -27,7 +27,7 @@ namespace SistemaDeportivo.Models
         [Required(ErrorMessage = "Coloque el Apellido materno del alumno")]
         [Display(Name = "Apellido Paterno")]
         public string ApellidoMat { get; set; }
-        [Range(15,22,ErrorMessage = "Coloca una edad Valida")]
+        [Range(15, 22, ErrorMessage = "Coloca una edad Valida")]
         [Required(ErrorMessage = "Coloque la Edad del alumno")]
         public decimal Edad { get; set; }
         [Display(Name = "Género")]
@@ -40,11 +40,10 @@ namespace SistemaDeportivo.Models
         [Phone(ErrorMessage = "Ingresa un número de celular valido")]
         public string Celular { get; set; }
         public int IdUsuario { get; set; }
-        public int? IdDeporteInscrito { get; set; }
 
-        public virtual DeporteInscrito IdDeporteInscritoNavigation { get; set; }
         public virtual Usuarios IdUsuarioNavigation { get; set; }
         public virtual ICollection<Credencial> Credencial { get; set; }
+        public virtual ICollection<DeporteInscrito> DeporteInscrito { get; set; }
         public virtual ICollection<Solicitud> Solicitud { get; set; }
     }
 }

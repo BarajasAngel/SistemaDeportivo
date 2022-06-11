@@ -9,17 +9,11 @@ namespace SistemaDeportivo.Models
 {
     public partial class DeporteInscrito
     {
-        public DeporteInscrito()
-        {
-            Alumnos = new HashSet<Alumnos>();
-        }
-
         public int IdDeporteInscrito { get; set; }
-        public int IdUsuario { get; set; }
+        public int IdAlumno { get; set; }
         public int IdDeporte { get; set; }
 
+        public virtual Alumnos IdAlumnoNavigation { get; set; }
         public virtual Deporte IdDeporteNavigation { get; set; }
-        public virtual Usuarios IdUsuarioNavigation { get; set; }
-        public virtual ICollection<Alumnos> Alumnos { get; set; }
     }
 }
