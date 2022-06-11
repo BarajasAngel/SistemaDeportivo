@@ -100,5 +100,21 @@ namespace SistemaDeportivo.Clases
                 }
             }
         }
+        public List<Alumnos> AlumnosNoti() {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {                
+                var getNotificacion = db.Solicitud.Where(x =>
+                x.IdProfesor == generic.IdProfesor).FirstOrDefault();
+
+                if (getNotificacion != null)
+                {
+                    var getAlumnos = db.Alumnos.Where(x =>
+                            x.IdUsuario == getNotificacion.IdUsuario).ToList();
+
+                    return getAlumnos; 
+                }
+                return null;
+            }            
+        }
     }
 }

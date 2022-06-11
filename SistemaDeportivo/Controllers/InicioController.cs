@@ -59,7 +59,13 @@ namespace SistemaDeportivo.Controllers
         [Authorize(Roles = "AlumnoInscrito")]
         public IActionResult AlumnoInscrito()
         {
+            ViewBag.Lista = obj.DeportesInscritos();            
             return View();
+        }
+        [HttpPost]
+        public RedirectToActionResult Solicitud(int id) {
+            TempData["Mensaje"] = obj.Solicitar(id);
+            return RedirectToAction("AlumnoInscrito");
         }
         [HttpGet]
         [Authorize(Roles = "Alumno, AlumnoInscrito")]        
@@ -91,6 +97,12 @@ namespace SistemaDeportivo.Controllers
             ViewBag.Lista = obj2.AlumnosList();
             return View();
         }
+        [HttpGet]
+        public IActionResult Notificaciones() {
+            ViewBag.Lista = obj2.AlumnosNoti();
+            return View();
+        }
+        [HttpPost]
         [Authorize(Roles = "Profesor")]
         public RedirectToActionResult EliminarAlumno(int id)
         {

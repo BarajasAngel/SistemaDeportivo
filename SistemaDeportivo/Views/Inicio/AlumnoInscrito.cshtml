@@ -1,4 +1,5 @@
 ﻿@using SistemaDeportivo.Clases
+@model DeporteCLS
 
 @{
     ViewData["Title"] = "AlumnoInscrito";
@@ -20,3 +21,46 @@
     la cual podrás adquirir en el siguiente <a asp-action="Credencial" target="_blank">enlace</a>    
 </p>
 
+<table class="table table-responsive table-striped col-12">
+<thead>
+    <tr>
+        <th scope="col">
+            @Html.DisplayNameFor(m => m.IdDeporte)
+        </th>
+        <th scope="col">
+            @Html.DisplayNameFor(m => m.NombreProfesor)
+        </th>
+        <th scope="col">
+            @Html.DisplayNameFor(m => m.NombreDeporte)
+        </th>        
+        <th>
+            Dar deBaja
+        </th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in ViewBag.Lista)
+{
+    <tr>
+        <th scope="row">@item.IdDeporte</th>
+        <td>@item.NombreProfesor</td>
+        <td>@item.NombreDeporte</td>
+        <td>
+            <button class="btn btn-danger" onclick="Solicitud(@item.IdDeporte)">Baja</button>
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+
+<form asp-action="Solicitud" asp-controller="Inicio" method="post" id="frmSolicitar">
+    <input type="hidden" id="txtDeporte" name="id"/>
+</form>
+
+<script>
+function Solicitud(id) { 
+    document.getElementById("txtDeporte").value = id; 
+    frmSolicitar.submit();
+}
+
+</script>

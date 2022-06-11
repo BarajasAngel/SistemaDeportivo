@@ -12,18 +12,18 @@ namespace SistemaDeportivo.Models
     {
         public Deporte()
         {
-            Alumnos = new HashSet<Alumnos>();
+            DeporteInscrito = new HashSet<DeporteInscrito>();
             Profesores = new HashSet<Profesores>();
         }
         [Key]
         public int IdDeporte { get; set; }
         [Display(Name = "Deporte")]
-        public string NombreDeporte { get; set; }        
+        public string NombreDeporte { get; set; }
         public int IdHorario { get; set; }
         public int Cupo { get; set; }
 
         public virtual Horario IdHorarioNavigation { get; set; }
-        public virtual ICollection<Alumnos> Alumnos { get; set; }
+        public virtual ICollection<DeporteInscrito> DeporteInscrito { get; set; }
         public virtual ICollection<Profesores> Profesores { get; set; }
     }
 }

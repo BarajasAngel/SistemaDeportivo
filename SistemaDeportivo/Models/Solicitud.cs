@@ -10,10 +10,10 @@ namespace SistemaDeportivo.Models
     public partial class Solicitud
     {
         public int IdSolicitud { get; set; }
-        public int IdUsuario { get; set; }
+        public int IdAlumno { get; set; }
         public int IdProfesor { get; set; }
 
+        public virtual Alumnos IdAlumnoNavigation { get; set; }
         public virtual Profesores IdProfesorNavigation { get; set; }
-        public virtual Usuarios IdUsuarioNavigation { get; set; }
     }
 }

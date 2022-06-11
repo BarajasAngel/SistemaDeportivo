@@ -95,9 +95,9 @@ namespace SistemaDeportivo.Clases
             }
         }
         public int CreateProfesor(ProfesorCLS profesor)
-        {        
-           using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
-           {
+        {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
 
                 Usuarios setUsuario = new Usuarios()
                 {
@@ -105,50 +105,52 @@ namespace SistemaDeportivo.Clases
                     Contraseña = profesor.Contraseña,
                     IdRol = 2
                 };
-                
+
                 db.Usuarios.Add(setUsuario);
                 db.SaveChanges();
-                
-                Horario setHorario = new Horario() {
+
+                Horario setHorario = new Horario()
+                {
                     Lunes = profesor.Lunes,
                     Marte = profesor.Marte,
                     Miercoles = profesor.Miercoles,
                     Jueves = profesor.Jueves,
                     Viernes = profesor.Viernes,
                 };
-                
+
                 db.Horario.Add(setHorario);
                 db.SaveChanges();
 
-                Deporte setDeporte = new Deporte() {
+                Deporte setDeporte = new Deporte()
+                {
                     NombreDeporte = profesor.NombreDeporte,
-                    IdHorario = db.Horario.ToList().Last().IdHorario                
+                    IdHorario = db.Horario.ToList().Last().IdHorario
                 };
 
                 db.Deporte.Add(setDeporte);
                 db.SaveChanges();
 
-               Profesores setProfesor = new Profesores()
-               {                  
-                   Nombre = profesor.Nombre,
-                   IdDeporte = db.Deporte.ToList().Last().IdDeporte,
-                   IdUsuario = db.Usuarios.ToList().Last().IdUsuario
-               };            
+                Profesores setProfesor = new Profesores()
+                {
+                    Nombre = profesor.Nombre,
+                    IdDeporte = db.Deporte.ToList().Last().IdDeporte,
+                    IdUsuario = db.Usuarios.ToList().Last().IdUsuario
+                };
 
-               try
-               {                        
-                   db.Profesores.Add(setProfesor);                   
-                   db.SaveChanges();
+                try
+                {
+                    db.Profesores.Add(setProfesor);
+                    db.SaveChanges();
 
-                   return 1;
-               }
-               catch (System.Exception)
-               {
+                    return 1;
+                }
+                catch (System.Exception)
+                {
 
-                   return 2;
-               }
-           }
-        
+                    return 2;
+                }
+            }
+
         }
         public List<ProfesorCLS> listProfesores()
         {
@@ -286,7 +288,7 @@ namespace SistemaDeportivo.Clases
                 {
                     var getAlumno = db.Alumnos.Where(x =>
                         x.IdAlumno == getCredencial[i].IdAlumno).First();
-                    getAlumno.IdDeporte = null;
+                    getAlumno.IdDeporteInscrito = null;
                     var getUsuarioAlumno = db.Usuarios.Where(x =>
                     x.IdUsuario == getAlumno.IdUsuario).First();
                     getUsuarioAlumno.IdRol = 3;

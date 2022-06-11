@@ -13,8 +13,10 @@ namespace SistemaDeportivo.Models
         public Alumnos()
         {
             Credencial = new HashSet<Credencial>();
+            Solicitud = new HashSet<Solicitud>();
         }
-        [Key]        
+
+        [Key]
         [Display(Name = "#")]
         public int IdAlumno { get; set; }
         [Required(ErrorMessage = "Coloque el nombre del alumno")]
@@ -36,12 +38,13 @@ namespace SistemaDeportivo.Models
         public string Correo { get; set; }
         [Required(ErrorMessage = "Coloque el Celular del alumno")]
         [Phone(ErrorMessage = "Ingresa un número de celular valido")]
-        public string Celular { get; set; }        
+        public string Celular { get; set; }
         public int IdUsuario { get; set; }
-        public int? IdDeporte { get; set; }
+        public int? IdDeporteInscrito { get; set; }
 
-        public virtual Deporte IdDeporteNavigation { get; set; }
+        public virtual DeporteInscrito IdDeporteInscritoNavigation { get; set; }
         public virtual Usuarios IdUsuarioNavigation { get; set; }
         public virtual ICollection<Credencial> Credencial { get; set; }
+        public virtual ICollection<Solicitud> Solicitud { get; set; }
     }
 }

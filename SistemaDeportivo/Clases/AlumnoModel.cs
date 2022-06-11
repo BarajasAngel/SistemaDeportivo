@@ -284,6 +284,43 @@ namespace SistemaDeportivo.Clases
                 return list;
             }               
         }
+        public List<DeporteCLS> DeportesInscritos() {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                List<DeporteCLS> lista = new List<DeporteCLS>();
+                var getCredencial = db.Credencial.Where(x => x.IdAlumno == generic.IdAlumno).ToList();
+                
 
+                for (int i = 0; i < getCredencial.Count; i++)
+                {
+                    var getProfesor = db.Profesores.Where(x => x.IdProfesor == getCredencial[i].IdProfesor).First();
+                    var getDeporte = db.Deporte.Where(x => x.IdDeporte == getProfesor.IdDeporte).First();
+                    lista.Add(new DeporteCLS { IdDeporte = getProfesor.IdProfesor, NombreProfesor = getProfesor.Nombre, NombreDeporte = getDeporte.NombreDeporte }); 
+                }
+                return lista;
+            }                
+        }
+        public string Solicitar(int id) {
+            using (SistemaDeportivoDBContext db =  new SistemaDeportivoDBContext())
+            {
+                var getAlumno = db.Alumnos.Where(x => x.IdAlumno == generic.IdAlumno).First();                
+                Solicitud setSolicitud = new Solicitud() {
+                    IdProfesor = id,
+                    IdUsuario = getAlumno.IdUsuario                    
+                };
+
+                try
+                {
+                    db.Solicitud.Add(setSolicitud);
+                    db.SaveChanges();
+
+                    return "Solicitud mandada correctamente";
+                }
+                catch (System.Exception)
+                {
+                    return "No pudimos procesar tu solicitud, contacta con tu profesor";
+                }
+            }        
+        } 
     }
 }

@@ -1,14 +1,13 @@
 ﻿@using SistemaDeportivo.Clases
 @model Alumnos
 @{
-    ViewData["Title"] = "Profesor";
+    ViewData["Title"] = "Notificaciones";
     ViewData["Usuario"] = new General().Usuario;
     ViewData["Rol"] = new General().Rol;
 }
 
-<h1>Bienvenido @ViewData["Usuario"]</h1>
-<div class="row">
-    
+<h1 >Notificaciones para dar de baja</h1>
+@*Correo al eliminar*@
 <table class="table table-responsive table-striped col-12">
 <thead>
     <tr>
@@ -20,9 +19,6 @@
         </th>
         <th scope="col">
             @Html.DisplayNameFor(m => m.Edad)
-        </th>
-        <th scope="col">
-            @Html.DisplayNameFor(m => m.Sexo)
         </th>
         <th scope="col">
             @Html.DisplayNameFor(m => m.Correo)
@@ -41,8 +37,7 @@
     <tr>
         <th scope="row">@item.IdAlumno</th>
         <td>@item.Nombre @item.ApellidoPat @item.ApellidoMat</td>
-        <td>@item.Edad</td>
-        <td>@item.Sexo</td>
+        <td>@item.Edad</td>        
         <td>@item.Correo</td>
         <td>@item.Celular</td>
         <td>
@@ -52,17 +47,3 @@
 }
 </tbody>
 </table>
-</div>
-
-<form asp-action="EliminarAlumno" asp-controller="Inicio" method="post" id="frmEliminar">
-    <input type="hidden" id="IdEliminar" name="id" />
-</form>
-
-<script>
-function Eliminar(id) 
-{ 
-    document.getElementById("IdEliminar").value = id;
-    frmEliminar.submit();
-}
-
-</script>

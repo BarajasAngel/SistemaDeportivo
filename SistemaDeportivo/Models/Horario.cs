@@ -15,8 +15,9 @@ namespace SistemaDeportivo.Models
             Deporte = new HashSet<Deporte>();
         }
         [Key]
-        public int IdHorario { get; set; }        
+        public int IdHorario { get; set; }
         public string Lunes { get; set; }
+        [Display(Name = "Martes")]
         public string Marte { get; set; }
         public string Miercoles { get; set; }
         public string Jueves { get; set; }

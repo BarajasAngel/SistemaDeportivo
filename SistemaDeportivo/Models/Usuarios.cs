@@ -14,10 +14,10 @@ namespace SistemaDeportivo.Models
         {
             Administrator = new HashSet<Administrator>();
             Alumnos = new HashSet<Alumnos>();
+            DeporteInscrito = new HashSet<DeporteInscrito>();
             Profesores = new HashSet<Profesores>();
-            Solicitud = new HashSet<Solicitud>();
         }
-
+        [Key]
         public int IdUsuario { get; set; }
         [Required(ErrorMessage = "Ingresa tu usuario")]
         [StringLength(10, MinimumLength = 10,
@@ -33,7 +33,7 @@ namespace SistemaDeportivo.Models
         public virtual Rol IdRolNavigation { get; set; }
         public virtual ICollection<Administrator> Administrator { get; set; }
         public virtual ICollection<Alumnos> Alumnos { get; set; }
+        public virtual ICollection<DeporteInscrito> DeporteInscrito { get; set; }
         public virtual ICollection<Profesores> Profesores { get; set; }
-        public virtual ICollection<Solicitud> Solicitud { get; set; }
     }
 }
