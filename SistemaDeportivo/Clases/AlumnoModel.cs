@@ -112,19 +112,24 @@ namespace SistemaDeportivo.Clases
                 {
                     var listDeporte = db.Deporte.Where(x => x.IdDeporte == listProf[i].IdDeporte).First();
                     var lisHorario = db.Horario.Where(x => x.IdHorario == listDeporte.IdHorario).First();
+                    var getInscrip = db.DeporteInscrito.Where(x => 
+                        x.IdAlumno == generic.IdAlumno && x.IdDeporte == listDeporte.IdDeporte).FirstOrDefault();
 
-                    getProfes.Add(new ProfesorCLS
+                    if (listDeporte.Cupo > 0 && getInscrip == null)
                     {
-                        IdProfesor = listProf[i].IdProfesor,
-                        Nombre = listProf[i].Nombre,
-                        NombreDeporte = listDeporte.NombreDeporte,
-                        Lunes = lisHorario.Lunes,
-                        Marte = lisHorario.Marte,
-                        Miercoles = lisHorario.Miercoles,
-                        Jueves = lisHorario.Jueves,
-                        Viernes = lisHorario.Viernes,
-                        Cupo = listDeporte.Cupo
-                    });
+                        getProfes.Add(new ProfesorCLS
+                        {
+                            IdProfesor = listProf[i].IdProfesor,
+                            Nombre = listProf[i].Nombre,
+                            NombreDeporte = listDeporte.NombreDeporte,
+                            Lunes = lisHorario.Lunes,
+                            Marte = lisHorario.Marte,
+                            Miercoles = lisHorario.Miercoles,
+                            Jueves = lisHorario.Jueves,
+                            Viernes = lisHorario.Viernes,
+                            Cupo = listDeporte.Cupo
+                        });
+                    }
                 }
                 return getProfes;
             }
@@ -280,9 +285,21 @@ namespace SistemaDeportivo.Clases
                 {
                     var getDeporte = db.Deporte.Where(x =>
                         x.IdDeporte == getProfes[i].IdDeporte).First();
+                    var getInscrip = db.DeporteInscrito.Where(x => x.IdAlumno == generic.IdAlumno).OrderBy(x => x.IdDeporte).ToList();
                     if (getDeporte.Cupo>0)
                     {
-                        list.Add(new string[] { getDeporte.IdDeporte.ToString(), getDeporte.NombreDeporte });
+                        try
+                        {
+                            if (getInscrip.Count == 0)
+                            {
+                                list.Add(new string[] { getDeporte.IdDeporte.ToString(), getDeporte.NombreDeporte });
+                            }
+                            else if (getDeporte.IdDeporte != getInscrip[i].IdDeporte){}
+                        }
+                        catch (System.Exception)
+                        {
+                            list.Add(new string[] { getDeporte.IdDeporte.ToString(), getDeporte.NombreDeporte });
+                        }                    
                     }
                 }
                 return list;

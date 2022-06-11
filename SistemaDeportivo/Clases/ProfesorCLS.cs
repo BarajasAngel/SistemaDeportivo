@@ -42,7 +42,7 @@ namespace SistemaDeportivo.Clases
         [StringLength(11, MinimumLength = 11, ErrorMessage = "Escibre un horario valido")]
         public string Viernes { get; set; }
         [Display(Name = "Cupo")]
-        [Range(50,50,ErrorMessage = "El cupo tiene que ser de 50 alumno")]
+        [Range(50, 50, ErrorMessage = "El cupo tiene que ser de 50 alumno")]
         public int Cupo { get; set; }
     }
 }
