@@ -47,3 +47,15 @@
 }
 </tbody>
 </table>
+
+<form asp-action="EliminarAlumno" asp-controller="Inicio" method="post" id="frmEliminar">
+    <input type="hidden" id="IdEliminar" name="id" />
+</form>
+
+<script>
+    function Eliminar(id) 
+    { 
+        document.getElementById("IdEliminar").value = id;
+        frmEliminar.submit();
+    }
+</script>

@@ -316,7 +316,11 @@ namespace SistemaDeportivo.Clases
                 {                    
                     var getProfesor = db.Profesores.Where(x => x.IdProfesor == getCredencial[i].IdProfesor).First();
                     var getDeporte = db.Deporte.Where(x => x.IdDeporte == getProfesor.IdDeporte).First();
-                    lista.Add(new DeporteCLS { IdDeporte = getProfesor.IdProfesor, NombreProfesor = getProfesor.Nombre, NombreDeporte = getDeporte.NombreDeporte }); 
+
+                    if (true)
+                    {
+                        lista.Add(new DeporteCLS { IdDeporte = getProfesor.IdProfesor, NombreProfesor = getProfesor.Nombre, NombreDeporte = getDeporte.NombreDeporte });  
+                    }
                 }
                 return lista;
             }                

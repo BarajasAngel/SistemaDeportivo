@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using SistemaDeportivo.Models;
+﻿using SistemaDeportivo.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,7 +18,7 @@ namespace SistemaDeportivo.Clases
 
                 var getDeporte = db.Deporte.Where(x =>
                 x.IdDeporte == getProfesor.IdDeporte).First();
-                
+
                 var getInsctritos = db.DeporteInscrito.Where(x => x.IdDeporte == getDeporte.IdDeporte).ToList();
 
                 for (int i = 0; i < getInsctritos.Count; i++)
@@ -64,7 +63,7 @@ namespace SistemaDeportivo.Clases
         public int UpdateProfesor(ProfesorCLS profesor)
         {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
-            { 
+            {
 
 
                 var getDeporte = db.Deporte.Where(x =>
@@ -104,9 +103,10 @@ namespace SistemaDeportivo.Clases
                 }
             }
         }
-        public List<Alumnos> AlumnosNoti() {
+        public List<Alumnos> AlumnosNoti()
+        {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
-            {                
+            {
                 var getNotificacion = db.Solicitud.Where(x =>
                 x.IdProfesor == generic.IdProfesor).FirstOrDefault();
 
@@ -114,10 +114,43 @@ namespace SistemaDeportivo.Clases
                 {
                     var getAlumnos = db.Alumnos.Where(x =>
                         x.IdAlumno == getNotificacion.IdAlumno).ToList();
-                    return getAlumnos; 
+                    return getAlumnos;
                 }
-                return new List<Alumnos>();                
-            }            
+                return new List<Alumnos>();
+            }
+        }
+        public bool DeleteAlumno(int id)
+        {
+            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+            {
+                var getProfe = db.Profesores.Where(x => x.IdProfesor == generic.IdProfesor).First();
+                var setInscrip = db.DeporteInscrito.Where(x => x.IdAlumno == id && x.IdDeporte == getProfe.IdDeporte);
+                var setCredencial = db.Credencial.Where(x => x.IdAlumno == id && x.IdProfesor == getProfe.IdDeporte).First();
+                var setAlumno = db.Alumnos.Where(x => x.IdAlumno == id).First();
+                var setUsuario = db.Usuarios.Where(x => x.IdUsuario == setAlumno.IdUsuario).First();
+                var setCupo = db.Deporte.Where(x => x.IdDeporte == getProfe.IdDeporte).First();
+                setCupo.Cupo++;
+                try
+                {
+                    db.Credencial.Remove(setCredencial);
+                    db.DeporteInscrito.Remove(setInscrip.First());
+                    db.Deporte.Update(setCupo);
+                    db.SaveChanges();
+                    if (setInscrip.ToList().Count() == 0)
+                    {
+                        setUsuario.IdRol = 3;
+                        db.Usuarios.Update(setUsuario);
+                        db.SaveChanges();
+
+                    }
+                    return true;
+                }
+                catch (System.Exception)
+                {
+
+                    return false;
+                }
+            }
         }
     }
 }
