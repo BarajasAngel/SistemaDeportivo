@@ -30,7 +30,7 @@ namespace SistemaDeportivo.Clases
                 var getAlumno = db.Alumnos.Where(x =>
                     x.IdAlumno == generic.IdAlumno).First();
                 var getInscrito = db.DeporteInscrito.Where(x =>
-                    x.IdDeporteInscrito == getAlumno.IdDeporteInscrito).First();
+                    x.IdAlumno == getAlumno.IdAlumno).First();
                 var getDeporte = db.Deporte.Where(x => x.IdDeporte == getInscrito.IdDeporte).First();
                 var getProfesor = db.Profesores.Where(x => 
                     x.IdDeporte == getInscrito.IdDeporte).First();

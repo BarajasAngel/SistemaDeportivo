@@ -7,24 +7,28 @@ namespace SistemaDeportivo.Clases
 {
     public class ProfesorModel
     {
-        
-
         General generic = new General();
         public List<Alumnos> AlumnosList()
         {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
+                List<Alumnos> lista = new List<Alumnos>();
 
                 var getProfesor = db.Profesores.Where(x =>
                 x.Nombre == generic.Usuario).First();
 
                 var getDeporte = db.Deporte.Where(x =>
                 x.IdDeporte == getProfesor.IdDeporte).First();
+                
+                var getInsctritos = db.DeporteInscrito.Where(x => x.IdDeporte == getDeporte.IdDeporte).ToList();
 
-                var getAlumnos = db.Alumnos.Where(x =>
-                x.IdDeporteInscrito == getDeporte.IdDeporte).ToList();
+                for (int i = 0; i < getInsctritos.Count; i++)
+                {
+                    var getAlumnos = db.Alumnos.Where(x => x.IdAlumno == getInsctritos[i].IdAlumno).First();
 
-                return getAlumnos;
+                    lista.Add(getAlumnos);
+                }
+                return lista;
             }
         }
         public ProfesorCLS getProfesor()
@@ -109,11 +113,10 @@ namespace SistemaDeportivo.Clases
                 if (getNotificacion != null)
                 {
                     var getAlumnos = db.Alumnos.Where(x =>
-                            x.IdAlumno == getNotificacion.IdAlumno).ToList();
-
+                        x.IdAlumno == getNotificacion.IdAlumno).ToList();
                     return getAlumnos; 
                 }
-                return null;
+                return new List<Alumnos>();                
             }            
         }
     }

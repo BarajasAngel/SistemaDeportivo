@@ -37,8 +37,7 @@ namespace SistemaDeportivo.Clases
                     Edad = alumno.Edad,
                     Sexo = alumno.Sexo,
                     Correo = alumno.Correo,
-                    Celular = alumno.Celular,
-                    IdDeporteInscrito = null,
+                    Celular = alumno.Celular,                    
                     IdUsuario = getIdUsuario.IdUsuario
                 };
 
@@ -94,12 +93,6 @@ namespace SistemaDeportivo.Clases
                 var getAlumno = db.Alumnos.Where(x => x.IdUsuario == idUsuario).FirstOrDefault();
                 if (getAlumno != null)
                 {
-                    var getDeporte = db.Deporte.Where(x =>
-                        x.IdDeporte == getAlumno.IdDeporteInscrito).FirstOrDefault();
-                    if (getDeporte != null)
-                    {
-                        generic.Deporte = getDeporte.NombreDeporte;
-                    }
                     generic.Rol = rol;
                     generic.IdAlumno = getAlumno.IdAlumno;
                     return $"{getAlumno.Nombre} {getAlumno.ApellidoPat} {getAlumno.ApellidoMat}";
@@ -168,16 +161,12 @@ namespace SistemaDeportivo.Clases
                 var getAlumno = db.Alumnos.Where(x => x.IdAlumno == generic.IdAlumno).First();
                 var getDeporte = db.Deporte.Where(x => x.IdDeporte == int.Parse(deporte)).First();
                 DeporteInscrito setInscrip = new DeporteInscrito() { 
-                    IdUsuario = getAlumno.IdUsuario,
+                    IdAlumno = getAlumno.IdAlumno,
                     IdDeporte = getDeporte.IdDeporte
-                };
-
-                
+                };                
 
                 db.DeporteInscrito.Add(setInscrip);
-                db.SaveChanges();
-
-                getAlumno.IdDeporteInscrito = setInscrip.IdDeporteInscrito; 
+                db.SaveChanges();                
                      
                 var getProfe = db.Profesores.Where(x => x.IdDeporte == setInscrip.IdDeporte).First();
                 var getUsuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno.IdUsuario).First();
@@ -213,71 +202,75 @@ namespace SistemaDeportivo.Clases
                 }
             }
         }
-        public int Update(AlumnoCLS alumnos)
-        {
-            using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
-            {                
-                var getAlumno = db.Alumnos.Where(x => x.IdAlumno == alumnos.IdAlumno).First();
-                var getUsuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno.IdUsuario).First();
 
-                Alumnos setAlumno = new Alumnos();
+        #region Actualizar informacion del alumno (No funcional)
+        //public int Update(AlumnoCLS alumnos)
+        //{
+        //    using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
+        //    {                
+        //        var getAlumno = db.Alumnos.Where(x => x.IdAlumno == alumnos.IdAlumno).First();
+        //        var getUsuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno.IdUsuario).First();
 
-                setAlumno.IdAlumno = getAlumno.IdAlumno;
-                setAlumno.IdUsuario = getUsuario.IdUsuario;
-                setAlumno.Nombre = alumnos.Nombre;
-                setAlumno.ApellidoPat = alumnos.ApellidoPat;
-                setAlumno.ApellidoMat = alumnos.ApellidoMat;
-                setAlumno.Edad = alumnos.Edad;
-                setAlumno.Sexo = alumnos.Sexo;
-                setAlumno.Correo = alumnos.Correo;
-                setAlumno.Celular = alumnos.Celular;
-                setAlumno.IdDeporteInscrito = getAlumno.IdDeporteInscrito;               
+        //        Alumnos setAlumno = new Alumnos();
 
-                
-
-                //Alumnos setAlumno = new Alumnos()
-                //{
-                //    IdAlumno = getAlumno.IdAlumno,
-                //    IdUsuario = getUsuario.IdUsuario,
-                //    Nombre = alumnos.Nombre,
-                //    ApellidoPat = alumnos.ApellidoPat,
-                //    ApellidoMat = alumnos.ApellidoMat,
-                //    Edad = alumnos.Edad,
-                //    Sexo = alumnos.Sexo,
-                //    Correo = alumnos.Correo,
-                //    Celular = alumnos.Celular,
-                //    IdDeporte = getAlumno.IdDeporte
-                //};                                
-
-                Usuarios setUsuarios = new Usuarios();
-                setUsuarios.Usuario = getUsuario.Usuario;
-                setUsuarios.Contraseña = alumnos.Contraseña;
-                setUsuarios.IdUsuario = getUsuario.IdUsuario;
-                setUsuarios.IdRol = getUsuario.IdRol;
+        //        setAlumno.IdAlumno = getAlumno.IdAlumno;
+        //        setAlumno.IdUsuario = getUsuario.IdUsuario;
+        //        setAlumno.Nombre = alumnos.Nombre;
+        //        setAlumno.ApellidoPat = alumnos.ApellidoPat;
+        //        setAlumno.ApellidoMat = alumnos.ApellidoMat;
+        //        setAlumno.Edad = alumnos.Edad;
+        //        setAlumno.Sexo = alumnos.Sexo;
+        //        setAlumno.Correo = alumnos.Correo;
+        //        setAlumno.Celular = alumnos.Celular;
+        //        setAlumno.IdDeporteInscrito = getAlumno.IdDeporteInscrito;               
 
 
-                //Usuarios setUsuario = new Usuarios()
-                //{
-                //    Usuario = getUsuario.Usuario,
-                //    Contraseña = alumnos.Contraseña,
-                //    IdUsuario = getUsuario.IdUsuario,
-                //    IdRol = getUsuario.IdRol,                    
-                //};
 
-                try
-                {                                        
-                    db.Usuarios.Update(setUsuarios);
-                    db.Alumnos.Update(setAlumno);                    
-                    db.SaveChanges();
-                    return 1;
-                }
-                catch (System.Exception EX)
-                {
-                    string variable = EX.Message;
-                    return 2;
-                }
-            }
-        }
+        //        //Alumnos setAlumno = new Alumnos()
+        //        //{
+        //        //    IdAlumno = getAlumno.IdAlumno,
+        //        //    IdUsuario = getUsuario.IdUsuario,
+        //        //    Nombre = alumnos.Nombre,
+        //        //    ApellidoPat = alumnos.ApellidoPat,
+        //        //    ApellidoMat = alumnos.ApellidoMat,
+        //        //    Edad = alumnos.Edad,
+        //        //    Sexo = alumnos.Sexo,
+        //        //    Correo = alumnos.Correo,
+        //        //    Celular = alumnos.Celular,
+        //        //    IdDeporte = getAlumno.IdDeporte
+        //        //};                                
+
+        //        Usuarios setUsuarios = new Usuarios();
+        //        setUsuarios.Usuario = getUsuario.Usuario;
+        //        setUsuarios.Contraseña = alumnos.Contraseña;
+        //        setUsuarios.IdUsuario = getUsuario.IdUsuario;
+        //        setUsuarios.IdRol = getUsuario.IdRol;
+
+
+        //        //Usuarios setUsuario = new Usuarios()
+        //        //{
+        //        //    Usuario = getUsuario.Usuario,
+        //        //    Contraseña = alumnos.Contraseña,
+        //        //    IdUsuario = getUsuario.IdUsuario,
+        //        //    IdRol = getUsuario.IdRol,                    
+        //        //};
+
+        //        try
+        //        {                                        
+        //            db.Usuarios.Update(setUsuarios);
+        //            db.Alumnos.Update(setAlumno);                    
+        //            db.SaveChanges();
+        //            return 1;
+        //        }
+        //        catch (System.Exception EX)
+        //        {
+        //            string variable = EX.Message;
+        //            return 2;
+        //        }
+        //    }
+        //}
+        #endregion
+
         public List<string[]> Deportes() {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
@@ -317,7 +310,7 @@ namespace SistemaDeportivo.Clases
                 var getAlumno = db.Alumnos.Where(x => x.IdAlumno == generic.IdAlumno).First();                
                 Solicitud setSolicitud = new Solicitud() {
                     IdProfesor = id,
-                    IdAlumno = getAlumno.IdUsuario                    
+                    IdAlumno = getAlumno.IdAlumno                    
                 };
 
                 try

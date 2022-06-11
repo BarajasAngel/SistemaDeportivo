@@ -287,8 +287,7 @@ namespace SistemaDeportivo.Clases
                 for (int i = 0; i < getCredencial.Count; i++)
                 {
                     var getAlumno = db.Alumnos.Where(x =>
-                        x.IdAlumno == getCredencial[i].IdAlumno).First();
-                    getAlumno.IdDeporteInscrito = null;
+                        x.IdAlumno == getCredencial[i].IdAlumno).First();                    
                     var getUsuarioAlumno = db.Usuarios.Where(x =>
                     x.IdUsuario == getAlumno.IdUsuario).First();
                     getUsuarioAlumno.IdRol = 3;

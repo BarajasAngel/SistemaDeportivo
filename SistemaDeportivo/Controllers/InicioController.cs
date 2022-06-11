@@ -79,7 +79,7 @@ namespace SistemaDeportivo.Controllers
         public IActionResult ConfigAlumno(AlumnoCLS alumno) {
             if (ModelState.IsValid)
             {
-                ViewBag.Bool = obj.Update(alumno);
+                //ViewBag.Bool = obj.Update(alumno);
             }
             return View(obj.ReadInfo());
         }
@@ -98,6 +98,7 @@ namespace SistemaDeportivo.Controllers
             return View();
         }
         [HttpGet]
+        [Authorize(Roles = "Profesor")]
         public IActionResult Notificaciones() {
             ViewBag.Lista = obj2.AlumnosNoti();
             return View();
