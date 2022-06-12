@@ -323,16 +323,25 @@ namespace SistemaDeportivo.Clases
         public string Solicitar(int id) {
             using (SistemaDeportivoDBContext db =  new SistemaDeportivoDBContext())
             {
-                var getAlumno = db.Alumnos.Where(x => x.IdAlumno == generic.IdAlumno).First();                
+                var getAlumno = db.Alumnos.Where(x => x.IdAlumno == generic.IdAlumno).First();
+                var getSolicitud = db.Solicitud.Where(x => x.IdAlumno == generic.IdAlumno).FirstOrDefault();
+
+                if (getSolicitud != null)
+                {
+                    return "Ya solicitaste que te den de baja, espera.";
+                }
+                
                 Solicitud setSolicitud = new Solicitud() {
                     IdProfesor = id,
                     IdAlumno = getAlumno.IdAlumno                    
                 };
 
+                
+
                 try
-                {
+                {                    
                     db.Solicitud.Add(setSolicitud);
-                    db.SaveChanges();
+                    db.SaveChanges();                     
 
                     return "Solicitud mandada correctamente";
                 }
