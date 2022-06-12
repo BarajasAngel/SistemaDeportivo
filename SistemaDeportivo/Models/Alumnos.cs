@@ -27,7 +27,7 @@ namespace SistemaDeportivo.Models
         [Required(ErrorMessage = "Coloque el Apellido materno del alumno")]
         [Display(Name = "Apellido Paterno")]
         public string ApellidoMat { get; set; }
-        [Range(15, 22, ErrorMessage = "Coloca una edad Valida")]
+        [Range(15, 60, ErrorMessage = "Coloca una edad Valida")]
         [Required(ErrorMessage = "Coloque la Edad del alumno")]
         public decimal Edad { get; set; }
         [Display(Name = "Género")]

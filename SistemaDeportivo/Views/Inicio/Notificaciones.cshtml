@@ -55,7 +55,28 @@
 <script>
     function Eliminar(id) 
     { 
-        document.getElementById("IdEliminar").value = id;
+      
+     swal({
+  title: "¿Está seguro?",
+  text: "Esta a punto de dar de baja a un alumno de su deporte",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+
+    swal("Alumno eliminado correctamente", {
+      icon: "success",
+    });
+    document.getElementById("IdEliminar").value = id;
         frmEliminar.submit();
+  } else {
+    swal("No se realizaron cambios");
+  }
+});
+        
+       
+
     }
 </script>

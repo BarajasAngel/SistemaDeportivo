@@ -11,9 +11,11 @@
 
 <h3>Tú inscripcion ha terminado.</h3>
 <p>
-    Para poder ingresar necesitaras tener una credencial, 
+    Para poder ingresar necesitaras tenr una credencial, 
     la cual podrás adquirir en el siguiente <a asp-action="Credencial" target="_blank">enlace</a>    
 </p>
+
+<div id="Error"></div>
 
 <table class="table table-responsive table-striped col-12">
 <thead>
@@ -51,9 +53,24 @@
 </form>
 
 <script>
-function Solicitud(id) { 
-    document.getElementById("txtDeporte").value = id; 
-    frmSolicitar.submit();
-}
+function Solicitud(id) 
+{ 
 
+    swal({
+  title: "¿Está seguro?",
+  text: "Esta a punto de mandar una solicitud de baja",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+    if (willDelete) {        
+    document.getElementById("txtDeporte").value = id; 
+    frmSolicitar.submit();        
+  }
+  else {
+    swal("No se realizaron cambios");
+  }
+});     
+}
 </script>
