@@ -175,8 +175,10 @@ namespace SistemaDeportivo.Clases
                      
                 var getProfe = db.Profesores.Where(x => x.IdDeporte == setInscrip.IdDeporte).First();
                 var getUsuario = db.Usuarios.Where(x => x.IdUsuario == getAlumno.IdUsuario).First();
-                getUsuario.IdRol = 4;                
-                                
+                getUsuario.IdRol = 4;
+
+                generic.Rol = "AlumnoInscrito";
+
                 getDeporte.Cupo--;
                 var getCredencial = db.Credencial.Where(x => x.IdProfesor == getProfe.IdProfesor).FirstOrDefault();
 
@@ -280,26 +282,19 @@ namespace SistemaDeportivo.Clases
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
                 List<string[]> list = new List<string[]>();
-                var getProfes = db.Profesores.ToList();
+                var getProfes = db.Profesores.ToList();                
+                
+
                 for (int i = 0; i < getProfes.Count; i++)
                 {
                     var getDeporte = db.Deporte.Where(x =>
                         x.IdDeporte == getProfes[i].IdDeporte).First();
-                    var getInscrip = db.DeporteInscrito.Where(x => x.IdAlumno == generic.IdAlumno).OrderBy(x => x.IdDeporte).ToList();
-                    if (getDeporte.Cupo>0)
-                    {
-                        try
-                        {
-                            if (getInscrip.Count == 0)
-                            {
-                                list.Add(new string[] { getDeporte.IdDeporte.ToString(), getDeporte.NombreDeporte });
-                            }
-                            else if (getDeporte.IdDeporte != getInscrip[i].IdDeporte){}
-                        }
-                        catch (System.Exception)
-                        {
-                            list.Add(new string[] { getDeporte.IdDeporte.ToString(), getDeporte.NombreDeporte });
-                        }                    
+                    var getInscrip = db.DeporteInscrito.Where(x =>
+                        x.IdAlumno == generic.IdAlumno && x.IdDeporte == getDeporte.IdDeporte).FirstOrDefault();
+
+                    if (getDeporte.Cupo>0 && getInscrip == null)
+                    {                        
+                        list.Add(new string[] { getDeporte.IdDeporte.ToString(), getDeporte.NombreDeporte });                                                
                     }
                 }
                 return list;
