@@ -1,6 +1,7 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using SistemaDeportivo.Models;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -26,14 +27,20 @@ namespace SistemaDeportivo.Clases
             string usuario;
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {
+                List<Deporte> getDeporte = new List<Deporte>();
+                List<Profesores> getProfesor = new List<Profesores>();
                 //Esto va a fallar solucionar despues
                 var getAlumno = db.Alumnos.Where(x =>
                     x.IdAlumno == generic.IdAlumno).First();
                 var getInscrito = db.DeporteInscrito.Where(x =>
-                    x.IdAlumno == getAlumno.IdAlumno).First();
-                var getDeporte = db.Deporte.Where(x => x.IdDeporte == getInscrito.IdDeporte).First();
-                var getProfesor = db.Profesores.Where(x => 
-                    x.IdDeporte == getInscrito.IdDeporte).First();
+                    x.IdAlumno == getAlumno.IdAlumno).ToList();
+                for (int i = 0; i < getInscrito.Count; i++)
+                {
+                    getDeporte.Add(db.Deporte.Where(x => x.IdDeporte == getInscrito[i].IdDeporte).First());
+                    getProfesor.Add(db.Profesores.Where(x =>
+                   x.IdDeporte == getInscrito[i].IdDeporte).First());
+                }
+               
                 var getUSuario = db.Usuarios.Where(x => 
                     x.IdUsuario == getAlumno.IdUsuario).First();                
                 usuario = getUSuario.Usuario;
@@ -96,12 +103,16 @@ namespace SistemaDeportivo.Clases
 
                 PdfPTable tabl2 = new PdfPTable(2);
                 tabl2.WidthPercentage = 100;
-                PdfPCell fila11 = new PdfPCell(new Phrase("Profesor: " + getProfesor.Nombre, letra2));
-                fila11.BorderWidth = 0;
-                PdfPCell fila22 = new PdfPCell(new Phrase("Deporte:" + getDeporte.NombreDeporte, letra2));
-                fila22.BorderWidth = 0;
-                tabl2.AddCell(fila11);
-                tabl2.AddCell(fila22);
+
+                for (int i = 0; i < getDeporte.Count; i++)
+                {
+                    PdfPCell fila11 = new PdfPCell(new Phrase("Profesor: " + getProfesor[i].Nombre, letra2));
+                    fila11.BorderWidth = 0;
+                    tabl2.AddCell(fila11);
+                    PdfPCell fila22 = new PdfPCell(new Phrase("Deporte:" + getDeporte[i].NombreDeporte, letra2));
+                    fila22.BorderWidth = 0;
+                    tabl2.AddCell(fila22);
+                }                
                 pdfDoc.Add(tabl2);
                 pdfDoc.Add(Chunk.NEWLINE);
                 pdfDoc.Add(Chunk.NEWLINE);

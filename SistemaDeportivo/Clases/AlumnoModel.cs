@@ -15,7 +15,7 @@ namespace SistemaDeportivo.Clases
             {
                 if (Validation(alumno.Usuario, alumno.Contraseña) != "")
                 {
-                    return "Este usuario ya existe";
+                    return "2";
                 }
                 Usuarios setUser = new Usuarios()
                 {
@@ -50,7 +50,7 @@ namespace SistemaDeportivo.Clases
                 }
                 catch (System.Exception)
                 {
-                    return "Hubo un error al realizar el registro, si estas viendo esto contacta con el programador";
+                    return "1";
 
                 }
             }
@@ -209,7 +209,6 @@ namespace SistemaDeportivo.Clases
                 }
             }
         }
-
         #region Actualizar informacion del alumno (No funcional)
         //public int Update(AlumnoCLS alumnos)
         //{
@@ -277,7 +276,6 @@ namespace SistemaDeportivo.Clases
         //    }
         //}
         #endregion
-
         public List<string[]> Deportes() {
             using (SistemaDeportivoDBContext db = new SistemaDeportivoDBContext())
             {

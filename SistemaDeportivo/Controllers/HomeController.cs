@@ -69,16 +69,27 @@ namespace SistemaDeportivo.Controllers
         }
         [HttpGet]
         public IActionResult Registro() {
+            AlumnoCLS alumno = new AlumnoCLS();
             ViewBag.Bool = false;
-            return View();
+            return View(alumno);
         }
         [HttpPost]
         public IActionResult Registro(AlumnoCLS alumno)
-        {
+        {            
             if (ModelState.IsValid)
             {
                 ViewBag.Bool = true;
                 ViewBag.Mensaje = obj.Create(alumno);
+                if (ViewBag.Mensaje != "1")
+                {
+                    if (ViewBag.Mensaje != "2")
+                    {
+                        return RedirectToAction("Login");
+                    }
+                    ViewBag.Mensaje = "El usuario ya existe";
+                    return View();
+                }
+                ViewBag.Mensaje = "Hubo un error al realizar el registro, si estas viendo esto contacta con el programador";
                 return View();
             }
             ViewBag.Bool = false;

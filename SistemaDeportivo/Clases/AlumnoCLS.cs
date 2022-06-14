@@ -15,7 +15,7 @@ namespace SistemaDeportivo.Clases
 		[Display(Name = "Contraseña")]
 		[Required(ErrorMessage = "Se requiere una contraseña valida")]
 		[StringLength(30, MinimumLength = 8,
-			ErrorMessage = "Tu contraseña debe tener entre 8 y 30 caracteres")]
+			ErrorMessage = "Tu contraseña debe tener entre 8 y 30 caracteres")]		
 		public string Contraseña { get; set; }
 
 		[DataType(DataType.Password)]

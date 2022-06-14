@@ -35,7 +35,7 @@
                   <div class="text-center">
                   </div>
                  @if(@ViewBag.Bool){
-                      <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <strong>@ViewBag.Mensaje</strong> Da click <a asp-action="Login" asp-controller="Home">aquí</a> para iniciar sesion
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -48,6 +48,7 @@
                     method="post"    
                     class="row"
                     id="frmRegistro"
+                    onloadedmetadata="limpiar()"
                   >
                   @*------------------------------------------------------------*@
                     <div class="mb-4 col-lg-4">
@@ -55,7 +56,7 @@
                         asp-for="Usuario"
                         class="col-form-label col-form-label-lg"></label>
                       <input                        
-                        asp-for="Usuario"
+                        asp-for="Usuario"                        
                         class="form-control form-control-lg"
                         placeholder="Coloca tú usuario aquí"/>
                         <span asp-validation-for="Usuario" class="text-danger"></span>
@@ -66,7 +67,7 @@
                         asp-for="Contraseña"                        
                         class="col-form-label col-form-label-lg"></label>
                       <input                        
-                        asp-for="Contraseña"                        
+                        asp-for="Contraseña"                                                
                         placeholder="Coloca tú contraseña aquí"
                         class="form-control form-control-lg"                        
                       />
@@ -177,7 +178,8 @@
                     <div class="text-center col-12"> 
                       <button
                         class="btn-primary btn form-control"
-                        type="submit">
+                        type="submit"                        
+                      >
                         Registrarse
                       </button>
                     </div>
