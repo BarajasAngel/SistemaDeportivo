@@ -34,7 +34,7 @@ namespace SistemaDeportivo.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=Asura;Initial Catalog=SistemaDeportivoDB;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Data Source=BARUCK;Initial Catalog=SistemaDeportivoDB;Integrated Security=True");
             }
         }
 

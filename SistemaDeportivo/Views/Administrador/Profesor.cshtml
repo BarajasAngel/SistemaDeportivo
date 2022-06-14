@@ -108,8 +108,27 @@
 
 <script>
     function Eliminar(id) { 
-        document.getElementById("txtEliminar").value = id;
+
+        swal({
+  title: "¿Está seguro?",
+  text: "Esta a punto de eliminar un profesor",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Profesor eliminado", {
+      icon: "success",
+    });
+    document.getElementById("txtEliminar").value = id;
         frmEliminar.submit();
+  } else {
+    swal("No se realizaron cambios");
+  }
+});
+
+        
     }
 </script>
 
